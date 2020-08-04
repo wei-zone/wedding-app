@@ -1,40 +1,18 @@
 {
-	"miniprogramRoot": "dist/",
-	"projectname": "%E8%B6%A3%E5%A9%9A%E7%A4%BC%20-%20%E4%BA%91%E5%BC%80%E5%8F%91",
-	"description": "趣婚礼",
-	"appid": "wx29ddc6783f8e57e6",
-	"cloudfunctionRoot": "cloud/functions/",
+	"description": "项目配置文件。",
 	"setting": {
 		"urlCheck": false,
-		"es6": false,
-		"enhance": false,
-		"postcss": false,
-		"preloadBackgroundData": false,
-		"minified": false,
-		"newFeature": false,
-		"coverView": true,
-		"nodeModules": false,
-		"autoAudits": false,
-		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false,
-		"uglifyFileName": false,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"compileHotReLoad": false,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"useIsolateContext": true,
-		"useCompilerModule": true,
-		"userConfirmedUseCompilerModuleSwitch": false
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false
 	},
+	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+	"appid": "wx29ddc6783f8e57e6",
+	"projectname": "%E5%A9%9A%E7%A4%BC%E9%82%80%E8%AF%B7%E5%87%BD",
+	"cloudfunctionRoot": "static/functions/",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -44,57 +22,13 @@
 			"current": -1,
 			"list": []
 		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
 		"game": {
-			"current": -1,
-			"list": []
-		},
-		"gamePlugin": {
-			"current": -1,
+			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": [
-				{
-					"id": 0,
-					"name": "pages/About/index",
-					"pathName": "pages/About/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/Msg/index",
-					"pathName": "pages/Msg/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/Photo/index",
-					"pathName": "pages/Photo/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/Location/index",
-					"pathName": "pages/Location/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/Bless/index",
-					"pathName": "pages/Bless/index",
-					"query": "",
-					"scene": null
-				}
-			]
+			"list": []
 		}
 	}
 }

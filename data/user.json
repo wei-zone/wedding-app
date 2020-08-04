@@ -1,0 +1,15 @@
+{
+  "_id": "XIUZypT75u22fIzv",
+  "user": {
+    "nickName": "forguo",
+    "gender": {
+      "$numberLong": "1"
+    },
+    "language": "zh_CN",
+    "city": "Los Angeles",
+    "province": "California",
+    "country": "United States",
+    "avatarUrl": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJFH7aPInAsRM4Q3TAQyJuXt3iaGz9JzYOoRbN8sfGMibDP1kX87bjyf2zrZeye8ibkP2DqYpxALfkGw/132"
+  },
+  "_openid": "oisc95Uvnx5lETBjRP8A3Za_xszw"
+}
