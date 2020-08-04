@@ -1,0 +1,15 @@
+button {
+    background: none;
+    &:after {
+        content: none;
+        border: none;
+    }
+}
+
+Button {
+    background: none;
+    &:after {
+        content: none;
+        border: none;
+    }
+}

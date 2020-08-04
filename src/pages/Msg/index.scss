@@ -1,0 +1,91 @@
+@import "../../common/css/theme";
+Page {
+    background: #fff;
+}
+
+.msg {
+    width: 100%;
+    padding-top: 30px;
+    overflow-y: auto;
+    &-item {
+        padding: 15px 0 10px 25px;
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: start;
+        &__user-avatar {
+            width: 88px;
+            height: 88px;
+            overflow: hidden;
+            border-radius: 50%;
+            margin-right: 32px;
+        }
+        &__user-avatar-img {
+            width: 88px;
+            height: 88px;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+        &__desc {
+            flex: 1;
+            overflow: hidden;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        &__user-info {
+            overflow: auto;
+        }
+        &__user-name {
+            margin-top: 5px;
+            font-size: 28px;
+            color: rgba(0,0,0,0.5);
+            width: auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        &__msg-time {
+            margin-top: 6px;
+            padding-bottom: 6px;
+            font-size: 26px;
+            color: rgba(0,0,0,0.3);
+            list-style: none;
+            overflow: hidden;
+        }
+        &__msg-text {
+            padding-right: 20px;
+            color: rgba(0,0,0,0.6);
+            font-size: 30px;
+            padding-top: 8px;
+            line-height: 50px;
+            word-wrap: break-word;
+            word-break: break-all;
+            white-space: pre-line;
+        }
+    }
+
+    &-send {
+        position: fixed;
+        right: 0;
+        bottom: 200px;
+        width: 174px;
+        height: 65px;
+        background: $color-brand;
+        border-bottom-left-radius: 34px;
+        border-top-left-radius: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        opacity: 0.85;
+        &-btn {
+            width: 95px;
+            font-size: 26px;
+            font-weight:400;
+            color:rgba(255,255,255,1);
+        }
+        &-icon {
+            width: 33px;
+            height: 33px;
+            margin-left: 26px;
+        }
+    }
+}
