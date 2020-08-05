@@ -5,23 +5,23 @@ import cloudConfig from './service/config'
 import configStore from './store'
 import './common/css/app.scss'
 
-// 分享
-Component.prototype.onShareAppMessage = function () {
-    return {
-        title: '诚邀您参加我们的婚礼~',
-        path: '/pages/Index/index', // 默认首页
-    };
-};
+// 设置全局分享
+// Component.prototype.onShareAppMessage = function () {
+//     return {
+//         title: '诚邀您参加我们的婚礼~',
+//         path: '/pages/Index/index', // 默认首页
+//     };
+// };
 
 const store = configStore();
 
 // app中的生命周期只会执行一次
 class App extends Component {
     componentWillMount() {
-        Taro.hideTabBar();
+        Taro.hideTabBar(); // 默认进来先隐藏 tabBar，当首页数据加载完成会显示
         console.log(`%c Env %c ${process.env.NODE_ENV}`, 'padding: 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060', 'padding: 1px 5px 1px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e');
-        this.getSystemInfo();
-        this.checkVersion();
+        this.getSystemInfo(); // 获取系统信息
+        this.checkVersion(); // 版本更新
     }
 
     componentDidMount() {
@@ -39,7 +39,9 @@ class App extends Component {
 
     // 获取系统信息
     getSystemInfo = () => {
+        // 设备信息
         let systemInfo = Taro.getSystemInfoSync() || {};
+        // 胶囊按钮数据
         let menuButtonInfo = Taro.getMenuButtonBoundingClientRect ? Taro.getMenuButtonBoundingClientRect() : null;
         if (!systemInfo.statusBarHeight) {
             systemInfo.statusBarHeight = systemInfo.screenHeight - systemInfo.windowHeight - 20;
@@ -49,7 +51,7 @@ class App extends Component {
         return systemInfo;
     };
 
-    // 版本管理
+    // 版本更新
     checkVersion = () => {
         if (Taro.canIUse('getUpdateManager')) {
             const updateManager = Taro.getUpdateManager();

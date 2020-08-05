@@ -4,7 +4,7 @@ const BASE_URL = 'http://localhost'; // 开发
 
 module.exports = {
     env: {
-        NODE_ENV: '"production"'
+        NODE_ENV: '"production"' // 默认：development
     },
     defineConstants: {
         BASE_URL: BASE_URL,

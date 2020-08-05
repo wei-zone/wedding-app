@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro'
 import React, {Component} from 'react'
 import { Image, View } from '@tarojs/components';
+import {connect} from "react-redux";
 import LoadMore from "../../components/LoadMore";
 import SendMsg from "./components/SendMsg"
 import GetUserInfo from '../../components/GetUserInfo';
@@ -8,6 +9,11 @@ import iconWrite from "../../common/img/icon-write.png";
 import './index.scss'
 
 import cloud from '../../service/cloud';
+
+@connect(({account, invite}) => ({
+    userInfo: account.userInfo,
+    invite: invite.invite,
+}))
 
 class Msg extends Component {
     state = {
@@ -22,6 +28,16 @@ class Msg extends Component {
         this.getList();
     }
 
+    onShareAppMessage () {
+        const {
+            invite
+        } = this.props;
+        return {
+            title: `诚邀您参加${invite.groomName}&${invite.brideName}的婚礼`,
+            path: '/pages/Index/index',
+        }
+    }
+
     onPullDownRefresh () {
         this.setState({
             list: [],
@@ -32,6 +48,7 @@ class Msg extends Component {
             this.getList();
         });
     };
+
     onReachBottom () {
         this.getList();
     };
@@ -90,6 +107,7 @@ class Msg extends Component {
             msgVisible
         } = this.state;
 
+        // 列表渲染
         const renderList = (msg) => {
             return msg.map((item) => {
                 return (

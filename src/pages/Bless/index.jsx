@@ -13,8 +13,9 @@ import { dispatchSendMsg } from '../../store/actions/msg';
 
 let videoContext = null;
 
-@connect(({account}) => ({
-    userInfo: account.userInfo
+@connect(({account, invite}) => ({
+    userInfo: account.userInfo,
+    invite: invite.invite
 }), {
     dispatchSendMsg
 })
@@ -38,6 +39,16 @@ class Bless extends Component {
 
     componentWillUnmount() {
         videoContext = null;
+    }
+
+    onShareAppMessage () {
+        const {
+            invite
+        } = this.props;
+        return {
+            title: `诚邀您参加${invite.groomName}&${invite.brideName}的婚礼`,
+            path: '/pages/Index/index',
+        }
     }
 
     getInfo = () => {

@@ -8,6 +8,7 @@ import callShe from '../../common/img/icon-call-she.png';
 
 @connect(({invite}) => {
     return {
+        invite: invite.invite,
         brideMobile: invite.invite.brideMobile,
         groomMobile: invite.invite.groomMobile,
         location: invite.invite.location,
@@ -18,8 +19,19 @@ class Location extends Component {
     state = {
         navBarTop: 44 + 36 + 6 + 45,
     };
+
     componentDidMount() {
         this.getSystemInfo();
+    }
+
+    onShareAppMessage () {
+        const {
+            invite
+        } = this.props;
+        return {
+            title: `诚邀您参加${invite.groomName}&${invite.brideName}的婚礼`,
+            path: '/pages/Index/index',
+        }
     }
 
     getSystemInfo = () => {
@@ -30,6 +42,7 @@ class Location extends Component {
         });
     };
 
+    // 一键导航
     handleMapNav = () => {
         const {
             location,
@@ -54,6 +67,7 @@ class Location extends Component {
         })
     };
 
+    // 电话联系新娘、新郎
     handlePhoneCall = (phone) => {
         Taro.makePhoneCall({
             phoneNumber: phone

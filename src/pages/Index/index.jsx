@@ -40,13 +40,16 @@ class Index extends Component {
         } = this.props;
         return {
             title: `诚邀您参加${invite.groomName}&${invite.brideName}的婚礼`,
+            path: '/pages/Index/index',
         }
     }
 
+    // 获取邀请函信息
     getInviteInfo = () => {
         this.props.dispatchGetInviteInfo();
     };
 
+    // 获取缓存的系统信息，设置按钮位置
     getSystemInfo = () => {
         let systemInfo = Taro.systemInfo;
         let menuButtonInfo = Taro.menuButtonInfo;
@@ -63,7 +66,6 @@ class Index extends Component {
             invite,
             loadingStatus
         } = this.props;
-        console.log(loadingStatus);
         return (
             <View className='page invite'>
                 <Image className='invite-banner' src={invite.banner} />
@@ -84,14 +86,15 @@ class Index extends Component {
                     top: `${navBarTop}px`
                 }}
                 >
+                    {/* 关于 */}
                     <Navigator url='/pages/About/index' className='invite-tool-btn invite-tool-about'>
                         <Image src={iconAbout} className='invite-tool-icon invite-tool-about-icon' />
                     </Navigator>
+                    {/* 分享 */}
                     <Button openType='share' className='invite-tool-btn invite-tool-share'>
                         <Image src={iconShare} className='invite-tool-icon invite-tool-share-icon' />
                     </Button>
                 </View>
-
                 {
                     loadingStatus === 'loading' &&
                     <View className='spin-loading'>

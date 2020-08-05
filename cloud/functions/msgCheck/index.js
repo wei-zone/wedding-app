@@ -1,3 +1,8 @@
+/**
+ * @Description: 文本内容过滤；
+ * @author: forguo
+ * @date: 2020/8/5
+*/
 // 云函数入口文件
 const cloud = require('wx-server-sdk');
 
