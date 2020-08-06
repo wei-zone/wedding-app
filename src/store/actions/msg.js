@@ -17,16 +17,17 @@ export const dispatchSendMsg = (data) => {
                 title: '发送中...',
                 mask: true
             });
-            wx.cloud.callFunction({
+            // 云调用内容安全过滤
+            Taro.cloud.callFunction({
                 name: 'msgCheck',
                 data: { content: data.userMsg },
             }).then(res => {
-                console.log(res);
                 if (res && res.result && res.result.errCode === 0) {
                     Taro.showLoading({
                         title: '发送中...',
                         mask: true
                     });
+                    // 数据库插入留言数据
                     cloud.add('wedd_msgs', data).then(msgRes => {
                         resolve(msgRes);
                     }, (err) => {
