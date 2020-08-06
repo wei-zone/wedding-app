@@ -263,4 +263,4 @@ exports.main = async function (event, context) {
 
 ---
 
-编码不易，感谢留下您的小~`⭐`
+编码不易，感谢各位大佬的吐槽和`⭐`
