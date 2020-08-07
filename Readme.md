@@ -204,6 +204,16 @@ exports.main = async function (event, context) {
     });
 ```
 
+## 表设计
+
+- wedd_invite：婚礼信息
+
+- wedd_msgs：留言祝福
+
+- wedd_photos：相册
+
+- wedd_video：视频
+
 ## 项目结构
 
 - 模块划分
