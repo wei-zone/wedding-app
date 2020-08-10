@@ -19,7 +19,7 @@ export const dispatchUserAuth = () => {
 export const dispatchGetInviteInfo = () => {
     return async (dispatch) => {
         Taro.showNavigationBarLoading();
-        cloud.get('wedd_invite').then((res) => {
+        cloud.get('wedding_invite').then((res) => {
             if (res.errMsg === 'collection.get:ok') {
                 if (res.data.length > 0) {
                     let data = res.data[0];
