@@ -22,6 +22,16 @@ class Msg extends Component {
         this.getList();
     }
 
+    onShareAppMessage () {
+        const {
+            invite
+        } = this.props;
+        return {
+            title: `诚邀您参加${invite.groomName}&${invite.brideName}的婚礼`,
+            path: '/pages/Index/index',
+        }
+    }
+
     onPullDownRefresh () {
         this.setState({
             list: [],
@@ -32,6 +42,7 @@ class Msg extends Component {
             this.getList();
         });
     };
+
     onReachBottom () {
         this.getList();
     };
@@ -45,7 +56,7 @@ class Msg extends Component {
             return false;
         }
         Taro.showNavigationBarLoading();
-        cloud.get('wedd_msgs', current).then((res) => {
+        cloud.get('wedding_msgs', current).then((res) => {
             if (res.errMsg === 'collection.get:ok') {
                 if (res.data.length <= 0) {
                     this.setState({
@@ -90,6 +101,7 @@ class Msg extends Component {
             msgVisible
         } = this.state;
 
+        // 列表渲染
         const renderList = (msg) => {
             return msg.map((item) => {
                 return (
@@ -146,3 +158,4 @@ class Msg extends Component {
 }
 
 export default Msg
+

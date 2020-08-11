@@ -126,7 +126,7 @@ const db = Taro.cloud.database({
 > 要操作一个集合，需先获取它的引用。在获取了数据库的引用后，就可以通过数据库引用上的 collection 方法获取一个集合的引用了
 
 ```js
-db.collection('wedd_msgs')
+db.collection('wedding_msgs')
    .orderBy('createTime', 'desc') // 时间升序
    .skip(current * 10)
    .limit(pageSize)
@@ -189,7 +189,7 @@ exports.main = async function (event, context) {
               mask: true
           });
           // 数据库插入留言数据
-          cloud.add('wedd_msgs', data).then(msgRes => {
+          cloud.add('wedding_msgs', data).then(msgRes => {
               resolve(msgRes);
           }, (err) => {
               console.log(err);
@@ -206,13 +206,13 @@ exports.main = async function (event, context) {
 
 ## 表设计
 
-- wedd_invite：婚礼信息
+- wedding_invite：婚礼信息
 
-- wedd_msgs：留言祝福
+- wedding_msgs：留言祝福
 
-- wedd_photos：相册
+- wedding_photos：相册
 
-- wedd_video：视频
+- wedding_video：视频
 
 ## 项目结构
 

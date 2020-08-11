@@ -54,7 +54,7 @@ class Bless extends Component {
     getInfo = () => {
         Taro.showNavigationBarLoading();
         cloud.get(
-            'wedd_video'
+            'wedding_video'
         ).then((res) => {
             if (res.errMsg === 'collection.get:ok') {
                 if (res.data.length <= 0) {

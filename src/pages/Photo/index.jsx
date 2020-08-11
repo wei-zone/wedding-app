@@ -34,7 +34,7 @@ class Photo extends Component {
 
     getList = () => {
         Taro.showNavigationBarLoading();
-        cloud.get('wedd_photos' ).then((res) => {
+        cloud.get('wedding_photos' ).then((res) => {
             if (res.errMsg === 'collection.get:ok') {
                 if (res.data.length <= 0) {
                     this.setState({

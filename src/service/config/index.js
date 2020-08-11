@@ -1,4 +1,4 @@
 export default {
-    DBID: 'forguo-0979a1',
+    DBID: 'wedding-wxapp',
     defaultPageSize: 10
 };
