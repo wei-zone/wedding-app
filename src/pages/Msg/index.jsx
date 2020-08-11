@@ -95,9 +95,7 @@ class Msg extends Component {
                 return (
                     <View className='msg-item' key={Math.random() * Math.random()}>
                         <View className='msg-item__user-avatar'>
-                            <Image className='msg-item__user-avatar-img'
-                                   lazyLoad src={item.avatarUrl}
-                            />
+                            <Image className='msg-item__user-avatar-img' src={item.avatarUrl} />
                         </View>
                         <View className='msg-item__desc'>
                             <View className='msg-item__user-info'>
