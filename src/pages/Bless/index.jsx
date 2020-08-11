@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {connect} from "react-redux";
 import {Button, Textarea, Video, View} from '@tarojs/components'
 import './index.scss'
-import {getRandomColor} from "../../util";
+// import {getRandomColor} from "../../util";
 
 import cloud from '../../service/cloud';
 import LoadMore from "../../components/LoadMore";
@@ -19,20 +19,20 @@ let videoContext = null;
 }), {
     dispatchSendMsg
 })
+
 class Bless extends Component {
     state = {
         loadingStatus: 'loading',
         video: {
             src: '',
             poster: '',
-            danmuList: []
         },
-        showShare: false,
     };
 
-    componentWillMount() {
+    onReady() {
         this.getInfo();
     }
+
     componentDidMount() {
         videoContext = Taro.createVideoContext('video')
     }
@@ -51,6 +51,20 @@ class Bless extends Component {
         }
     }
 
+    addBarrage = (data) => {
+        const barrageComp = this.selectComponent('.barrage');
+        this.barrage = barrageComp.getBarrageInstance({
+            font: 'bold 16px sans-serif',
+            duration: 10,
+            lineHeight: 2,
+            mode: 'separate',
+            padding: [10, 0, 10, 0],
+            tunnelShow: false
+        });
+        this.barrage.open();
+        this.barrage.addData(data)
+    };
+
     getInfo = () => {
         Taro.showNavigationBarLoading();
         cloud.get(
@@ -66,14 +80,14 @@ class Bless extends Component {
                     const {
                         src,
                         poster,
-                        danmuList
+                        barrage
                     } = info;
+                    this.addBarrage(barrage);
                     this.setState({
                         loadingStatus: 'isMore',
                         video: {
                             src,
                             poster,
-                            danmuList
                         },
                     });
                 }
@@ -123,10 +137,7 @@ class Bless extends Component {
                 type: 'danmu'
             }).then(() => {
                 // 发送弹幕
-                videoContext.sendDanmu({
-                    text: msg,
-                    color: getRandomColor()
-                });
+                this.barrage.addData(); // 添加弹幕数据
                 Taro.hideLoading();
                 Taro.showToast({
                     title: '留言成功~',
@@ -144,20 +155,6 @@ class Bless extends Component {
         }
     };
 
-    // 打开分享
-    handleOpenShare = () => {
-        this.setState({
-            showShare: true
-        })
-    };
-
-    // 关闭分享
-    handleCloseShare = (e) => {
-        this.setState({
-            showShare: false
-        })
-    };
-
     handleVideoError = (e) => {
         console.log(e);
         Taro.showToast({
@@ -166,20 +163,12 @@ class Bless extends Component {
         })
     };
 
-    onTimeUpdate = () => {
-    };
-
-    handleShareClick = (e) => {
-        console.log(e);
-        Taro.showShareMenu();
-    };
 
     render() {
         const {
             loadingStatus,
             video,
             msg,
-            showShare
         } = this.state;
 
         return (
@@ -195,12 +184,10 @@ class Bless extends Component {
                       id='video'
                       loop={false}
                       muted={false}
-                      danmuList={video.danmuList}
-                      enableDanmu
-                      danmuBtn
                       onError={this.handleVideoError.bind(this)}
-                      onTimeUpdate={this.onTimeUpdate.bind(this)}
-                    />
+                    >
+                        <barrage className="barrage"/>
+                    </Video>
                 </View>
                 {/* 留言板 */}
                 <View className='bless-msg'>
@@ -221,32 +208,6 @@ class Bless extends Component {
                         发送留言
                     </Button>
                     <Button className='bless-tool__share' openType='share'>分享喜悦</Button>
-                </View>
-
-                <View className='bless-share'>
-                    <mp-halfScreenDialog
-                      onbuttontap={this.handleShareClick.bind(this)}
-                      onClose={this.handleCloseShare.bind(this)}
-                      show={showShare}
-                      maskClosable
-                      title='分享喜悦'
-                      desc='分享给好友，将直接发送给好友~'
-                      tips='分享朋友圈，将会生产一张海报~'
-                      buttons={[
-                            {
-                                type: 'default',
-                                className: 'bless-share-moment',
-                                text: '辅助操作',
-                                value: 0,
-                            },
-                            {
-                                type: 'default',
-                                className: 'bless-share-partner',
-                                text: '主操作',
-                                value: 1
-                            }
-                        ]}
-                    />
                 </View>
 
                 {

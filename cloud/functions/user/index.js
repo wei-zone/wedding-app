@@ -9,12 +9,18 @@ const cloud = require('wx-server-sdk');
 cloud.init();
 
 // 云函数入口函数
+/**
+ *
+ * @param event 指的是触发云函数的事件，当小程序端调用云函数时，event 就是小程序端调用云函数时传入的参数，外加后端自动注入的小程序用户的 openid 和小程序的 appid
+ * @param context context 对象包含了此处调用的调用信息和运行状态
+ * @returns {Promise<{unionid: string, openid: string, appid: string, event: *}>}
+ */
 exports.main = async (event, context) => {
-    const wxContext = cloud.getWXContext();
+    const { OPENID, APPID, UNIONID } = cloud.getWXContext();
     return {
         event,
-        openid: wxContext.OPENID,
-        appid: wxContext.APPID,
-        unionid: wxContext.UNIONID
+        OPENID,
+        APPID,
+        UNIONID,
     }
 };

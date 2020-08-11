@@ -14,11 +14,9 @@ exports.main = async function (event, context) {
     let opts = {
         content: event.content || ''
     };
-    let fun = cloud.openapi.security.msgSecCheck(opts);
-
-    return fun.then(res => {
-        return res;
-    }).catch(err => {
+    try {
+        return await cloud.openapi.security.msgSecCheck(opts);
+    } catch (err) {
         return err;
-    });
+    }
 };

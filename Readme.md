@@ -132,7 +132,7 @@ db.collection('wedding_msgs')
    .limit(pageSize)
    .get()
 ```
-这样每次都比较麻烦，所以我做了统一的处理，都写在`service/cloud/index.js`当中，并export，只需要按需引入，并传入要操作的数据吗名称即可。
+这样每次都比较麻烦，所以我做了统一的处理，都写在`service/cloud/index.js`当中，并export，只需要按需引入，并传入要操作的数据库名称即可。
 
 ![云数据库](https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/db_function.png)
 

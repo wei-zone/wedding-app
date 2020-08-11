@@ -11,9 +11,19 @@ import './index.scss'
 
 class Photo extends Component {
     state = {
+        qrcode: 'https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/logo.png'
     };
 
     componentDidMount() {
+        Taro.cloud.callFunction({
+            name: 'getQrcode',
+        }).then(res => {
+            if (res) {
+                this.setState({
+                    qrcode: res
+                })
+            }
+        });
     }
 
     onShareAppMessage () {
@@ -34,15 +44,17 @@ class Photo extends Component {
     };
 
     render() {
+        const {
+            qrcode
+        } = this.state;
         return (
             <View className='page about'>
                 <View className='about-logo'>
                     <Image
                       className='about-logo-img'
-                      src='https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/logo.png'
+                      src={qrcode}
                     />
                 </View>
-
                 <View className='about-wedding'>趣婚礼</View>
                 <View className='about-version'>Version 2.0</View>
                 <View className='about-nav' hoverClass='btn-hover' onClick={this.handleContactMe.bind(this)}>
