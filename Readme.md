@@ -80,7 +80,7 @@ yarn
 {
     useExtendedLib: {
         'weui': true
-    },    
+    }
 }
 ```
 
@@ -95,11 +95,6 @@ yarn
 
 * 2. 数据库配置
 ![云开发](https://user-gold-cdn.xitu.io/2019/12/7/16ee0888f35bdc2a?w=1290&h=343&f=png&s=72422)
-
-> 原来云开发的管理只能依赖开发者工具，最近看到腾讯云有推出`云开发 CloudBase CMS`,
-> 有兴趣可以做了解.
-
-[CloudBase CMS](https://mp.weixin.qq.com/s/tTjZ0l0NmuBrFa0BEuTMgg)
 
 ### 数据库
 
@@ -213,6 +208,12 @@ exports.main = async function (event, context) {
 - wedding_photos：相册
 
 - wedding_video：视频
+
+## CMS
+
+> 腾讯云`CloudBase CMS`
+
+[参考文章](https://mp.weixin.qq.com/s/tTjZ0l0NmuBrFa0BEuTMgg)
 
 ## 项目结构
 

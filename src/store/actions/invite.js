@@ -5,15 +5,7 @@
 */
 import Taro from "@tarojs/taro";
 import { INVITE_INFO, INVITE_STATUS } from '../constants/invite'
-import request from '../request';
 import cloud from '../../service/cloud';
-
-// 用户授权登录
-export const dispatchUserAuth = () => {
-    return async () => (
-        await request.login()
-    );
-};
 
 // 获取用户信息
 export const dispatchGetInviteInfo = () => {

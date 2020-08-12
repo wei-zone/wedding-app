@@ -7,7 +7,7 @@ import './index.scss'
 
 import cloud from '../../service/cloud';
 import LoadMore from "../../components/LoadMore";
-import GetUserInfo from '../../components/GetUserInfo';
+// import GetUserInfo from '../../components/GetUserInfo';
 
 import { dispatchSendMsg } from '../../store/actions/msg';
 
@@ -29,11 +29,8 @@ class Bless extends Component {
         },
     };
 
-    onReady() {
-        this.getInfo();
-    }
-
     componentDidMount() {
+        this.getInfo();
         videoContext = Taro.createVideoContext('video')
     }
 
@@ -51,20 +48,6 @@ class Bless extends Component {
         }
     }
 
-    addBarrage = (data) => {
-        const barrageComp = this.selectComponent('.barrage');
-        this.barrage = barrageComp.getBarrageInstance({
-            font: 'bold 16px sans-serif',
-            duration: 10,
-            lineHeight: 2,
-            mode: 'separate',
-            padding: [10, 0, 10, 0],
-            tunnelShow: false
-        });
-        this.barrage.open();
-        this.barrage.addData(data)
-    };
-
     getInfo = () => {
         Taro.showNavigationBarLoading();
         cloud.get(
@@ -80,9 +63,7 @@ class Bless extends Component {
                     const {
                         src,
                         poster,
-                        barrage
                     } = info;
-                    this.addBarrage(barrage);
                     this.setState({
                         loadingStatus: 'isMore',
                         video: {
@@ -168,7 +149,6 @@ class Bless extends Component {
         const {
             loadingStatus,
             video,
-            msg,
         } = this.state;
 
         return (
@@ -185,28 +165,27 @@ class Bless extends Component {
                       loop={false}
                       muted={false}
                       onError={this.handleVideoError.bind(this)}
-                    >
-                        <barrage className="barrage"/>
-                    </Video>
-                </View>
-                {/* 留言板 */}
-                <View className='bless-msg'>
-                    <Textarea
-                      value={msg}
-                      show-confirm-bar confirm-type='发送'
-                      onInput={this.handleInput.bind(this, 'msg')}
-                      className='bless-msg-input'
-                      maxlength={200}
-                      placeholder='请输入弹幕留言，将同步到留言列表~'
-                      placeholderClass='placeholder-style'
                     />
                 </View>
+                {/* 留言板 */}
+                {/* 傻叉不给通过，先隐藏吧*/}
+                {/*<View className='bless-msg'>*/}
+                {/*    <Textarea*/}
+                {/*      value={msg}*/}
+                {/*      show-confirm-bar confirm-type='发送'*/}
+                {/*      onInput={this.handleInput.bind(this, 'msg')}*/}
+                {/*      className='bless-msg-input'*/}
+                {/*      maxlength={200}*/}
+                {/*      placeholder='请输入弹幕留言，将同步到留言列表~'*/}
+                {/*      placeholderClass='placeholder-style'*/}
+                {/*    />*/}
+                {/*</View>*/}
 
                 <View className='bless-tool'>
-                    <Button className='bless-tool__send-msg'>
-                        <GetUserInfo onHandleComplete={this.handleSendBless.bind(this)} />
-                        发送留言
-                    </Button>
+                    {/*<Button className='bless-tool__send-msg'>*/}
+                    {/*    <GetUserInfo onHandleComplete={this.handleSendBless.bind(this)} />*/}
+                    {/*    发送留言*/}
+                    {/*</Button>*/}
                     <Button className='bless-tool__share' openType='share'>分享喜悦</Button>
                 </View>
 
