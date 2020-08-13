@@ -2,3 +2,7 @@
 /dist/
 /.idea
 .idea
+/cloud/functions/wxShare/node_modules/
+/cloud/functions/user/node_modules/
+/cloud/functions/msgCheck/node_modules/
+/cloud/functions/getQrcode/node_modules/
