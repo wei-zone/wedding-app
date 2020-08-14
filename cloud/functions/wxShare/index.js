@@ -72,7 +72,12 @@ function accessToken () {
             if (!error && response.statusCode === 200) {
                 resolve(body);
             } else {
-                reject(error || response || body);
+                reject({
+                    code: 10086,
+                    message: 'error',
+                    data: error || response || body,
+                    error: JSON.stringify(error || response || body)
+                });
             }
         });
     });
@@ -95,8 +100,20 @@ function jsapiTicket () {
                 if (!error && response.statusCode === 200) {
                     resolve(body);
                 } else {
-                    reject(error || response || body);
+                    reject({
+                        code: 10086,
+                        message: 'error',
+                        data: error || response || body,
+                        error: JSON.stringify(error || response || body)
+                    });
                 }
+            });
+        }, (error) => {
+            reject({
+                code: 10086,
+                message: 'error',
+                data: error,
+                error: JSON.stringify(error)
             });
         });
     })
@@ -111,32 +128,48 @@ function jsapiTicket () {
  * 对所有待签名参数按照字段名的ASCII 码从小到大排序（ 字典序） 后，
  *  使用URL键值对的格式（ 即key1 = value1 & key2 = value2…） 拼接成字符串string1。
  * 这里需要注意的是所有参数名均为小写字符。 对string1作sha1加密， 字段名和字段值都采用原始值， 不进行URL 转义。
- * @param event
+ * @param url
  */
 
-function getSign (event) {
-    const url = event.url;
-    jsapiTicket().then(data => {
-        let res = JSON.parse(data);
-        console.log('jsapiTicket', res);
-        let ret = {
-            jsapi_ticket: res.ticket,
-            nonceStr: createNonceStr(),
-            timestamp: createTimestamp(),
-            url
-        };
-        let string = raw(ret);
-        ret.signature = sha1(string);
-        ret.appId = config.APPID;
-        console.log('ret', ret);
-        return {
-            errcode: 0,
-            errmsg: 'ok',
-            data: ret
-        };
+function getSign (url) {
+    return new Promise((resolve, reject) => {
+        jsapiTicket().then(data => {
+            let res = JSON.parse(data);
+            console.log('jsapiTicket', res);
+            let ret = {
+                jsapi_ticket: res.ticket,
+                nonceStr: createNonceStr(),
+                timestamp: createTimestamp(),
+                url: decodeURIComponent(url)
+            };
+            let string = raw(ret);
+            ret.signature = sha1(string);
+            ret.appId = config.APPID;
+            console.log('ret', ret);
+            resolve({
+                code: 0,
+                message: 'ok',
+                data: ret
+            })
+        }, (error) => {
+            reject({
+                code: 10086,
+                message: 'error',
+                data: error,
+                error: JSON.stringify(error)
+            });
+        });
     });
 }
 
-exports.main = (event) => {
-    return getSign(event);
+exports.main = async (event) => {
+    console.log('start ============================== >');
+    console.log('event ===== >', event);
+    console.log('end ============================== >');
+    console.log('url ===== >', event.url || event.body.split('=')[1]);
+    try {
+        return await getSign(event.url || event.body.split('=')[1])
+    } catch (err) {
+        return err;
+    }
 };
