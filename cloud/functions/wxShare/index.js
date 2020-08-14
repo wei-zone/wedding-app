@@ -164,9 +164,8 @@ function getSign (url) {
 
 exports.main = async (event) => {
     console.log('start ============================== >');
-    console.log('event ===== >', event);
-    console.log('end ============================== >');
     console.log('url ===== >', event.url || event.body.split('=')[1]);
+    console.log('end ============================== >');
     try {
         return await getSign(event.url || event.body.split('=')[1])
     } catch (err) {
