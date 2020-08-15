@@ -7,6 +7,7 @@
 const cloud = require('wx-server-sdk');
 const request = require('request');
 const crypto = require('crypto');
+const cache = require('memory-cache'); // 缓存
 
 // 公众号配置
 const config = {
@@ -61,27 +62,33 @@ function raw(args) {
     return string
 }
 
+
 // 获取access_token访问令牌
 function accessToken () {
     return new Promise((resolve, reject) => {
-        const {
-            APPID,
-            APPSECRET
-        } = config;
-        request(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${APPSECRET}`, function (error, response, body) {
-            if (!error && response.statusCode === 200) {
-                resolve(body);
-            } else {
-                reject({
-                    code: 10086,
-                    message: 'error',
-                    data: error || response || body,
-                    error: JSON.stringify(error || response || body)
-                });
-            }
-        });
+        // 先判断缓存中是否存在access_token
+        if (!cache.get('accessToken')) { // 如果 access_token 不存在则将请求结果保存进缓存
+            const {
+                APPID,
+                APPSECRET
+            } = config;
+            request(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${APPSECRET}`, function (error, response, data) {
+                let result = JSON.parse(data);
+                console.log('accessToken', result);
+                if (!error && response.statusCode === 200 && result.access_token) {
+                    cache.put('accessToken', result.access_token, (result.expires_in - 200) * 1000); // 缓存access_token
+                    resolve(result.access_token);
+                } else {
+                    console.warn(' accessToken ===== >', result.errmsg || response || error);
+                    reject(result.errmsg || response || error);
+                }
+            });
+        } else { // 否则直接导出缓存中的 access_token
+            resolve(cache.get('accessToken'))
+        }
     });
 }
+
 
 // {
 // "errcode": 0,
@@ -93,29 +100,27 @@ function accessToken () {
 // 获取jsapi_ticket临时票据
 function jsapiTicket () {
     return new Promise((resolve, reject) => {
-        accessToken().then(data => {
-            let res = JSON.parse(data);
-            console.log('accessToken', res);
-            request(`https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${res.access_token}&type=jsapi`, function (error, response, body) {
-                if (!error && response.statusCode === 200) {
-                    resolve(body);
-                } else {
-                    reject({
-                        code: 10086,
-                        message: 'error',
-                        data: error || response || body,
-                        error: JSON.stringify(error || response || body)
-                    });
-                }
+        // 先判断缓存中是否存在ticket
+        if (!cache.get('ticket')) { // 如果 ticket 不存在则将请求结果保存进缓存
+            accessToken().then(res => {
+                request(`https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${res}&type=jsapi`, function (error, response, data) {
+                    let result = JSON.parse(data);
+                    console.log('jsapiTicket', result);
+                    if (!error && response.statusCode === 200 && result.errcode === 0) {
+                        cache.put('ticket', result.ticket, (result.expires_in - 200) * 1000); // 缓存access_token
+                        resolve(result.ticket);
+                    } else {
+                        console.warn(' jsapiTicket ===== >', result.errmsg || response || error);
+                        reject(result.errmsg || response || error);
+                    }
+                });
+            }, (error) => {
+                console.warn(' jsapiTicket ===== >', error);
+                reject(error);
             });
-        }, (error) => {
-            reject({
-                code: 10086,
-                message: 'error',
-                data: error,
-                error: JSON.stringify(error)
-            });
-        });
+        } else {
+            resolve(cache.get('ticket'))
+        }
     })
 }
 
@@ -126,18 +131,16 @@ function jsapiTicket () {
  * 有效的jsapi_ticket, timestamp（ 时间戳）,
  * url（ 当前网页的URL， 不包含# 及其后面部分）。
  * 对所有待签名参数按照字段名的ASCII 码从小到大排序（ 字典序） 后，
- *  使用URL键值对的格式（ 即key1 = value1 & key2 = value2…） 拼接成字符串string1。
+ * 使用URL键值对的格式（ 即key1 = value1 & key2 = value2…） 拼接成字符串string1。
  * 这里需要注意的是所有参数名均为小写字符。 对string1作sha1加密， 字段名和字段值都采用原始值， 不进行URL 转义。
  * @param url
  */
 
-function getSign (url) {
+function wxsdk (url) {
     return new Promise((resolve, reject) => {
-        jsapiTicket().then(data => {
-            let res = JSON.parse(data);
-            console.log('jsapiTicket', res);
+        jsapiTicket().then(res => {
             let ret = {
-                jsapi_ticket: res.ticket,
+                jsapi_ticket: res,
                 nonceStr: createNonceStr(),
                 timestamp: createTimestamp(),
                 url: decodeURIComponent(url)
@@ -146,29 +149,33 @@ function getSign (url) {
             ret.signature = sha1(string);
             ret.appId = config.APPID;
             console.log('ret', ret);
-            resolve({
-                code: 0,
-                message: 'ok',
-                data: ret
-            })
+            resolve(ret)
         }, (error) => {
-            reject({
-                code: 10086,
-                message: 'error',
-                data: error,
-                error: JSON.stringify(error)
-            });
+            console.warn(' wxsdk ===== >', error);
+            reject(error);
         });
     });
 }
 
 exports.main = async (event) => {
     console.log('start ============================== >');
-    console.log('url ===== >', event.url || event.body.split('=')[1]);
+    console.log('event ===== >', event);
     console.log('end ============================== >');
+    console.log(cache.get('accessToken'));
+    const url = event.url || event.body.split('=')[1];
     try {
-        return await getSign(event.url || event.body.split('=')[1])
-    } catch (err) {
-        return err;
+        let res = await wxsdk(url);
+        return  {
+            code: 200,
+            message: 'ok',
+            data: res,
+        };
+    } catch (e) {
+        return  {
+            code: 10086,
+            message: 'error',
+            data: e,
+            err: JSON.stringify(e)
+        };
     }
 };
