@@ -3,62 +3,12 @@
  * @author: forguo
  * @date: 2020/7/17
 */
+
 // 通用
 @import "base";
 
-// 主题相关
+// 主题色
 @import "theme";
 
-// 引入所需的组件样式 - 方式三
-//【所有的样式文件】https://github.com/NervJS/taro-ui/tree/dev/src/style/components
-
-page {
-    min-height: 100vh;
-    overflow: hidden;
-    overflow-y: auto;
-}
-Page {
-    min-height: 100vh;
-    overflow: hidden;
-    overflow-y: auto;
-}
-
-.placeholder-style {
-    color: #CFCFCF;
-}
-
-/*
- * 修改weUi样式
- */
-// loadMore
-.weui-loadmore_line {
-    border: none;
-    margin-top: 1.5em;
-}
-.weui-loadmore__tips_in-line {
-    background: transparent;
-    top: 0;
-}
-
-.btn-hover {
-    background: #f8f8f8;
-}
-
-
-/*
- * 全屏loading
- */
-
-.spin-loading {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 99999;
-    top: 0;
-    left: 0;
-    pointer-events: all;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+// Taro UI
+@import "taro-ui";

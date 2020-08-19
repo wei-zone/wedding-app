@@ -263,9 +263,13 @@ exports.main = async function (event, context) {
 
 ## Taro3的坑
 
-- redux使得上拉加载冲突
+- redux使得下拉刷新和上拉加载冲突
 
-- 没法阻止事件冒泡
+- 无法阻止事件冒泡
+
+- 无法使用 小程序的`selectComponent`，获取组件实例
+
+`const barrageComp = this.selectComponent('.barrage')` 使用 `Taro.createRef();` 代替
 
 ## 关于
 

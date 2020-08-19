@@ -1,0 +1,21 @@
+/**
+ * @Description: taro-ui组件库
+ * @author: forguo
+ * @date: 2020/8/19
+*/
+@import "theme";
+// 自定义主题
+$color-brand: $color-brand;
+
+// 引入所需的组件样式 - 方式三
+//【所有的样式文件】https://github.com/NervJS/taro-ui/tree/dev/src/style/components
+
+// 按需引入样式
+@import "~taro-ui/dist/style/variables/default";
+@import "~taro-ui/dist/style/mixins/index";
+@import "~taro-ui/dist/style/components/icon";
+@import "~taro-ui/dist/style/components/flex";
+@import "~taro-ui/dist/style/components/button";
+@import "~taro-ui/dist/style/components/load-more";
+@import "~taro-ui/dist/style/components/activity-indicator";
+@import "~taro-ui/dist/style/components/loading";

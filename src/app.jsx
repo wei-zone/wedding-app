@@ -86,12 +86,6 @@ class App extends Component {
                 },
             ]
         },
-        useExtendedLib: {
-            'weui': true
-        },
-        usingComponents: {
-            'mp-loading': '/miniprogram_npm/weui-miniprogram/loading/loading'
-        },
         cloud: true
     };
 

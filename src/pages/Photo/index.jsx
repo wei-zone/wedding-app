@@ -137,22 +137,26 @@ class Photo extends Component {
         });
     };
 
+    renderList = () => {
+        let {
+            list: photoList
+        } = this.state;
+        return photoList.map((item) => {
+            return (
+                <SwiperItem key={Math.random() * Math.random()}>
+                    <View className='photo-swiper-item'>
+                        <Image mode='scaleToFill' className='photo-swiper-photo' src={item.src} lazyLoad onClick={this.handleImgSave.bind(this, item.src)} />
+                    </View>
+                </SwiperItem>
+            )
+        });
+    };
+
     render() {
         const {
             list,
             loadingStatus
         } = this.state;
-        const renderList = (photoList) => {
-            return photoList.map((item) => {
-                return (
-                    <SwiperItem key={Math.random() * Math.random()}>
-                        <View className='photo-swiper-item'>
-                            <Image mode='scaleToFill' className='photo-swiper-photo' src={item.src} lazyLoad onClick={this.handleImgSave.bind(this, item.src)} />
-                        </View>
-                    </SwiperItem>
-                )
-            });
-        };
         return (
             <View className='page photo'>
                 <Swiper
@@ -165,7 +169,7 @@ class Photo extends Component {
                   autoplay
                 >
                     {
-                        renderList(list)
+                        this.renderList()
                     }
                 </Swiper>
                 <View className='photo-save-tips'>点击图片保存至相册</View>

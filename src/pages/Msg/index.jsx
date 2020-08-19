@@ -95,42 +95,44 @@ class Msg extends Component {
         });
     };
 
+    // 列表渲染
+    renderList = () => {
+        let {
+            list
+        } = this.state;
+        return list.map((item) => {
+            return (
+                <View className='msg-item' key={Math.random() * Math.random()}>
+                    <View className='msg-item__user-avatar'>
+                        <Image className='msg-item__user-avatar-img' src={item.avatarUrl} />
+                    </View>
+                    <View className='msg-item__desc'>
+                        <View className='msg-item__user-info'>
+                            <View className='msg-item__user-name'>
+                                {item.nickName}
+                            </View>
+                            <View className='msg-item__msg-time'>
+                                {item.createTime}
+                            </View>
+                        </View>
+                        <View className='msg-item__msg-text'>{item.userMsg}</View>
+                    </View>
+                </View>
+            )
+        });
+    };
+
     render() {
         const {
-            list,
             loadingStatus,
             msgVisible
         } = this.state;
-
-        // 列表渲染
-        const renderList = (msg) => {
-            return msg.map((item) => {
-                return (
-                    <View className='msg-item' key={Math.random() * Math.random()}>
-                        <View className='msg-item__user-avatar'>
-                            <Image className='msg-item__user-avatar-img' src={item.avatarUrl} />
-                        </View>
-                        <View className='msg-item__desc'>
-                            <View className='msg-item__user-info'>
-                                <View className='msg-item__user-name'>
-                                    {item.nickName}
-                                </View>
-                                <View className='msg-item__msg-time'>
-                                    {item.createTime}
-                                </View>
-                            </View>
-                            <View className='msg-item__msg-text'>{item.userMsg}</View>
-                        </View>
-                    </View>
-                )
-            });
-        };
 
         return (
             <View className='page msg'>
                 <View className='msg-list'>
                     {
-                        renderList(list)
+                        this.renderList()
                     }
                 </View>
                 <LoadMore loadingStatus={loadingStatus} />

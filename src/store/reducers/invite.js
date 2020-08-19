@@ -10,6 +10,7 @@ let defaultState = {
         startTime: '',
         address: '',
         banner: '',
+        location: {}
     },
     statue: 'loading'
 };

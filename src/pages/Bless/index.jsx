@@ -2,15 +2,13 @@ import Taro, {Component} from '@tarojs/taro'
 import {connect} from '@tarojs/redux';
 import {Button, Textarea, Video, View} from '@tarojs/components'
 import './index.scss'
-// import {getRandomColor} from "../../util";
+import {getRandomColor} from "../../util";
 
 import cloud from '../../service/cloud';
 import LoadMore from "../../components/LoadMore";
 // import GetUserInfo from '../../components/GetUserInfo';
 
 import { dispatchSendMsg } from '../../store/actions/msg';
-
-let videoContext = null;
 
 @connect(({account, invite}) => ({
     userInfo: account.userInfo,
@@ -20,26 +18,28 @@ let videoContext = null;
 })
 
 class Bless extends Component {
-    state = {
-        loadingStatus: 'loading',
-        video: {
-            src: '',
-            poster: '',
-        },
-    };
-
+    constructor(props) {
+        super(props);
+        this.barrageComp = Taro.createRef();
+        this.state = {
+            loadingStatus: 'loading',
+            video: {
+                src: '',
+                poster: '',
+            }
+        };
+    }
     componentDidMount() {
+        this.initBarrage();
         this.getInfo();
-        videoContext = Taro.createVideoContext('video')
     }
     config = {
         navigationBarTitleText: '祝福',
         disableScroll: true,
+        "usingComponents": {
+            "barrage": "../../components/miniprogram-barrage",
+        }
     };
-    componentWillUnmount() {
-        videoContext = null;
-    }
-
     onShareAppMessage () {
         const {
             invite
@@ -48,6 +48,19 @@ class Bless extends Component {
             title: `诚邀您参加${invite.groomName}&${invite.brideName}的婚礼`,
             path: '/pages/Index/index',
         }
+    }
+
+    initBarrage() {
+        // 弹幕初始化
+        const barrageComp = this.barrageComp.current;
+        this.barrage = barrageComp.getBarrageInstance({
+            font: 'bold 16px sans-serif',
+            duration: 10,
+            lineHeight: 2,
+            mode: 'separate',
+            padding: [10, 0, 10, 0],
+            tunnelShow: false
+        });
     }
 
     getInfo = () => {
@@ -73,6 +86,7 @@ class Bless extends Component {
                             poster,
                         },
                     });
+                    this.handleAddBarrage(info.barrage);
                 }
             }
             Taro.hideNavigationBarLoading();
@@ -90,6 +104,18 @@ class Bless extends Component {
                 duration: 3000
             });
         });
+    };
+
+    handleAddBarrage (data) {
+        let barrage = data.map(item => {
+            return {
+                content: item,
+                color: getRandomColor()
+            }
+        });
+        console.log(barrage);
+        this.barrage.open();
+        this.barrage.addData(barrage);
     };
 
     handleInput = (state, e) => {
@@ -146,7 +172,6 @@ class Bless extends Component {
         })
     };
 
-
     render() {
         const {
             loadingStatus,
@@ -167,7 +192,9 @@ class Bless extends Component {
                       loop={false}
                       muted={false}
                       onError={this.handleVideoError.bind(this)}
-                    />
+                    >
+                        <barrage className='barrage' ref={this.barrageComp} />
+                    </Video>
                 </View>
                 {/* 留言板 */}
                 {/* 傻叉不给通过，先隐藏吧*/}
@@ -189,6 +216,7 @@ class Bless extends Component {
                     {/*    发送留言*/}
                     {/*</Button>*/}
                     <Button className='bless-tool__share' openType='share'>分享喜悦</Button>
+                    <Button className='bless-tool__share' onClick={this.handleAddBarrage.bind(this)}>开启弹幕</Button>
                 </View>
 
                 {
