@@ -261,6 +261,12 @@ exports.main = async function (event, context) {
 
 [Taro + Antd + koa2 + MongoDb](https://github.com/wforguo/wedding)
 
+## Taro3的坑
+
+- redux使得上拉加载冲突
+
+- 没法阻止事件冒泡
+
 ## 关于
 
 - [个人主页](http://www.forguo.cn)
