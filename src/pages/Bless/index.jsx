@@ -1,6 +1,5 @@
-import Taro from '@tarojs/taro'
-import React, {Component} from 'react'
-import {connect} from "react-redux";
+import Taro, {Component} from '@tarojs/taro'
+import {connect} from '@tarojs/redux';
 import {Button, Textarea, Video, View} from '@tarojs/components'
 import './index.scss'
 // import {getRandomColor} from "../../util";
@@ -33,7 +32,10 @@ class Bless extends Component {
         this.getInfo();
         videoContext = Taro.createVideoContext('video')
     }
-
+    config = {
+        navigationBarTitleText: '祝福',
+        disableScroll: true,
+    };
     componentWillUnmount() {
         videoContext = null;
     }

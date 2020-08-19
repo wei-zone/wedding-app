@@ -1,7 +1,6 @@
-import Taro from '@tarojs/taro'
-import React, {Component} from 'react'
+import Taro, {Component} from '@tarojs/taro'
 import { Button, Image, View, Text } from '@tarojs/components'
-import {connect} from "react-redux";
+import {connect} from '@tarojs/redux';
 import './index.scss'
 
 @connect(({account, invite}) => ({
@@ -10,6 +9,7 @@ import './index.scss'
 }))
 
 class Photo extends Component {
+
     state = {
         qrcode: 'https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/logo.png'
     };
@@ -25,7 +25,10 @@ class Photo extends Component {
             }
         });
     }
-
+    config = {
+        navigationBarTitleText: '关于',
+        disableScroll: true
+    };
     onShareAppMessage () {
         const {
             invite

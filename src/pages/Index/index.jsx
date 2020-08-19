@@ -1,8 +1,8 @@
-import Taro from '@tarojs/taro'
-import React, {Component} from 'react'
-import {connect} from "react-redux";
+import Taro, {Component} from '@tarojs/taro'
+import {connect} from '@tarojs/redux';
 import { Navigator, Image, Button, View } from '@tarojs/components'
 import './index.scss'
+
 import inviteTips from '../../common/img/invite-tips.png';
 import inviteLetter from '../../common/img/invite-letter.png';
 import iconAbout from '../../common/img/icon-about.png';
@@ -29,11 +29,17 @@ class Index extends Component {
         navBarTop: 44 + 36 + 6 + 45,
     };
 
-
     componentWillMount() {
         this.getSystemInfo();
         this.getInviteInfo();
     }
+
+    config = {
+        navigationBarTitleText: '邀请函',
+        navigationStyle: 'custom',
+        disableScroll: true,
+    };
+
     onShareAppMessage () {
         const {
             invite

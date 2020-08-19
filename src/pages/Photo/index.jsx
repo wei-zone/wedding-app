@@ -1,7 +1,6 @@
-import Taro from '@tarojs/taro'
-import React, {Component} from 'react'
+import Taro, {Component} from '@tarojs/taro'
 import {Swiper, SwiperItem, Image, View} from '@tarojs/components'
-import {connect} from "react-redux";
+import {connect} from '@tarojs/redux';
 import './index.scss'
 
 import cloud from '../../service/cloud';
@@ -13,6 +12,7 @@ import LoadMore from "../../components/LoadMore";
 }))
 
 class Photo extends Component {
+
     state = {
         list: [],
         loadingStatus: 'loading'
@@ -21,7 +21,10 @@ class Photo extends Component {
     componentWillMount() {
         this.getList();
     }
-
+    config = {
+        navigationBarTitleText: '甜蜜相册',
+        navigationStyle: 'custom'
+    };
     onShareAppMessage () {
         const {
             invite

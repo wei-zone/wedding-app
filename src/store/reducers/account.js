@@ -18,8 +18,8 @@ try {
     if (tokenExpireTime) {
         defaultState.tokenExpireTime = tokenExpireTime;
     }
-} catch {
-
+} catch (e) {
+    console.log(e);
 }
 
 export default function counter(state = defaultState, action) {

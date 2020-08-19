@@ -1,7 +1,6 @@
-import Taro from '@tarojs/taro'
-import React, {Component} from 'react'
+import Taro, {Component} from '@tarojs/taro'
 import { Button, View } from '@tarojs/components'
-import {connect} from "react-redux";
+import {connect} from '@tarojs/redux';
 import './index.scss'
 import {
     dispatchGetUserInfo

@@ -1,17 +1,17 @@
-import Taro from '@tarojs/taro'
-import React, {Component} from 'react'
-import {Provider} from 'react-redux'
-import cloudConfig from './service/config'
+import Taro, {Component} from '@tarojs/taro'
+import { Provider } from '@tarojs/redux'
 import configStore from './store'
+import Index from './pages/Index/index'
+import cloudConfig from './service/config'
 import './common/css/app.scss'
 
 // 设置全局分享
-// Component.prototype.onShareAppMessage = function () {
-//     return {
-//         title: '诚邀您参加我们的婚礼~',
-//         path: '/pages/Index/index', // 默认首页
-//     };
-// };
+Component.prototype.onShareAppMessage = function () {
+    return {
+        title: '诚邀您参加我们的婚礼~',
+        path: '/pages/Index/index', // 默认首页
+    };
+};
 
 const store = configStore();
 
@@ -33,9 +33,67 @@ class App extends Component {
         console.log(store.getState());
     }
 
-    componentDidCatchError(e) {
-        console.log(e);
-    }
+    config = {
+        pages: [
+            'pages/Index/index',
+            'pages/Photo/index',
+            'pages/Location/index',
+            'pages/Bless/index',
+            'pages/Msg/index',
+            'pages/About/index',
+        ],
+        window: {
+            backgroundTextStyle: 'dark',
+            navigationBarBackgroundColor: '#fff',
+            navigationBarTitleText: '趣婚礼',
+            navigationBarTextStyle: 'black'
+        },
+        tabBar: {
+            color: '#7F8389',
+            selectedColor: '#ff4c91',
+            borderStyle: 'black',
+            backgroundColor: '#ffffff',
+            list: [
+                {
+                    pagePath: 'pages/Index/index',
+                    text: '邀请',
+                    iconPath: 'common/tab/invite.png',
+                    selectedIconPath: 'common/tab/invite-active.png'
+                },
+                {
+                    pagePath: 'pages/Photo/index',
+                    text: '相册',
+                    iconPath: 'common/tab/photo.png',
+                    selectedIconPath: 'common/tab/photo-active.png'
+                },
+                {
+                    pagePath: 'pages/Location/index',
+                    text: '导航',
+                    iconPath: 'common/tab/location.png',
+                    selectedIconPath: 'common/tab/location-active.png'
+                },
+                {
+                    pagePath: 'pages/Bless/index',
+                    text: '祝福',
+                    iconPath: 'common/tab/bless.png',
+                    selectedIconPath: 'common/tab/bless-active.png'
+                },
+                {
+                    pagePath: 'pages/Msg/index',
+                    text: '留言',
+                    iconPath: 'common/tab/msg.png',
+                    selectedIconPath: 'common/tab/msg-active.png'
+                },
+            ]
+        },
+        useExtendedLib: {
+            'weui': true
+        },
+        usingComponents: {
+            'mp-loading': '/miniprogram_npm/weui-miniprogram/loading/loading'
+        },
+        cloud: true
+    };
 
     // 获取系统信息
     getSystemInfo = () => {
@@ -97,10 +155,10 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                {this.props.children}
+                <Index />
             </Provider>
         )
     }
 }
 
-export default App
+Taro.render(<App />, document.getElementById('app'));

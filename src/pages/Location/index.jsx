@@ -1,6 +1,5 @@
-import Taro from '@tarojs/taro'
-import React, {Component} from 'react'
-import {connect} from "react-redux";
+import Taro, {Component} from '@tarojs/taro'
+import {connect} from '@tarojs/redux';
 import { Button, Text, Image, View, Map } from '@tarojs/components'
 import './index.scss'
 import callHe from '../../common/img/icon-call-he.png';
@@ -16,6 +15,7 @@ import callShe from '../../common/img/icon-call-she.png';
 })
 
 class Location extends Component {
+
     state = {
         navBarTop: 44 + 36 + 6 + 45,
     };
@@ -23,7 +23,10 @@ class Location extends Component {
     componentDidMount() {
         this.getSystemInfo();
     }
-
+    config = {
+        navigationBarTitleText: '导航',
+        navigationStyle: 'custom'
+    };
     onShareAppMessage () {
         const {
             invite

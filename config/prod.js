@@ -1,8 +1,9 @@
 module.exports = {
     env: {
-        NODE_ENV: '"production"'
+        NODE_ENV: 'production'
     },
     defineConstants: {
+        BASE_URL: BASE_URL,
     },
     mini: {},
     h5: {
@@ -15,4 +16,4 @@ module.exports = {
          * }
          */
     }
-};
+}

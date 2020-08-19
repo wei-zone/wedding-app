@@ -1,6 +1,6 @@
 module.exports = {
     env: {
-        NODE_ENV: '"production"' // 默认：development
+        NODE_ENV: 'development' // 默认：development
     },
     defineConstants: {
     },

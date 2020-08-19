@@ -1,5 +1,4 @@
-import Taro from '@tarojs/taro'
-import React, {Component} from 'react'
+import Taro, {Component} from '@tarojs/taro'
 import { Image, View } from '@tarojs/components';
 import LoadMore from "../../components/LoadMore";
 import SendMsg from "./components/SendMsg"
@@ -21,7 +20,10 @@ class Msg extends Component {
     componentWillMount() {
         this.getList();
     }
-
+    config = {
+        enablePullDownRefresh: true,
+        navigationBarTitleText: '留言',
+    };
     onShareAppMessage () {
         const {
             invite
@@ -42,7 +44,6 @@ class Msg extends Component {
             this.getList();
         });
     };
-
     onReachBottom () {
         this.getList();
     };

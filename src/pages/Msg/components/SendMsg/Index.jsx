@@ -1,7 +1,6 @@
-import Taro from '@tarojs/taro'
-import React, {Component} from 'react'
+import Taro, {Component} from '@tarojs/taro'
 import { Image, Textarea, View } from '@tarojs/components';
-import {connect} from "react-redux";
+import {connect} from '@tarojs/redux';
 import iconBack from "../../../../common/img/icon-msg-back.png";
 import iconSend from "../../../../common/img/icon-msg-send.png";
 import './index.scss'
