@@ -9,6 +9,7 @@ class LoadMore extends Component {
             loadingStatus, // loading 状态显示加载状态，noMore 显示无更多数据
             noMoreText // 没有更多的文案
         } = this.props;
+        console.log(loadingStatus);
         return (
             <View className='we-load-more'>
                 <AtLoadMore

@@ -2,10 +2,12 @@
   position: relative;
   box-sizing: border-box;
   width: 100%;
-  height: 100%;
+  /*
+   *  修改弹幕高度，挡住了控制栏
+   */
+  height: calc(100% - 150px);
   pointer-events: auto;
 }
-
 .barrage-tunnel {
   box-sizing: border-box;
   position: relative;

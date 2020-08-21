@@ -50,10 +50,12 @@ export const dispatchGetInviteInfo = () => {
                         type: INVITE_INFO,
                         invite
                     });
-                    dispatch({
-                        type: INVITE_STATUS,
-                        statue: 'isMore'
-                    })
+                    setTimeout(() => {
+                        dispatch({
+                            type: INVITE_STATUS,
+                            statue: 'isMore'
+                        })
+                    }, 300)
                 } else {
                     dispatch({
                         type: INVITE_STATUS,

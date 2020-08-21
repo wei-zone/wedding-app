@@ -59,8 +59,8 @@ class Bless extends Component {
             lineHeight: 2,
             mode: 'separate',
             padding: [10, 0, 10, 0],
-            tunnelShow: false
-        });
+            tunnelShow: false,
+        })
     }
 
     getInfo = () => {
@@ -80,13 +80,17 @@ class Bless extends Component {
                         poster,
                     } = info;
                     this.setState({
-                        loadingStatus: 'isMore',
                         video: {
                             src,
                             poster,
                         },
                     });
                     this.handleAddBarrage(info.barrage);
+                    setTimeout(() => {
+                        this.setState({
+                            loadingStatus: 'isMore',
+                        })
+                    }, 150)
                 }
             }
             Taro.hideNavigationBarLoading();
@@ -184,13 +188,14 @@ class Bless extends Component {
                     <Video
                       className='bless-media__video'
                       src={video.src}
-                      controls
-                      autoplay={false}
+                      loop controls
                       poster={video.poster}
                       initialTime='0'
                       id='video'
-                      loop={false}
-                      muted={false}
+                      vslide-gesture
+                      vslide-gesture-in-fullscreen
+                      autoplay
+                      enable-play-gesture
                       onError={this.handleVideoError.bind(this)}
                     >
                         <barrage className='barrage' ref={this.barrageComp} />
