@@ -4,17 +4,23 @@ import {Button, Textarea, Video, View} from '@tarojs/components'
 import './index.scss'
 import {getRandomColor} from "../../util";
 
-import cloud from '../../service/cloud';
 import LoadMore from "../../components/LoadMore";
 // import GetUserInfo from '../../components/GetUserInfo';
 
-import { dispatchSendMsg } from '../../store/actions/msg';
+import { dispatchSendMsg, dispatchGetMsg } from '../../store/actions/msg';
+import {
+    dispatchGetVideo
+} from '../../store/actions/video';
+
+let barrageLoop = null;
 
 @connect(({account, invite}) => ({
     userInfo: account.userInfo,
     invite: invite.invite
 }), {
-    dispatchSendMsg
+    dispatchGetMsg,
+    dispatchSendMsg,
+    dispatchGetVideo
 })
 
 class Bless extends Component {
@@ -23,6 +29,9 @@ class Bless extends Component {
         this.barrageComp = Taro.createRef();
         this.state = {
             loadingStatus: 'loading',
+            current: 0,
+            isMore: true,
+            barrageVisible: true,
             video: {
                 src: '',
                 poster: '',
@@ -30,8 +39,11 @@ class Bless extends Component {
         };
     }
     componentDidMount() {
-        this.initBarrage();
         this.getInfo();
+        this.initBarrage();
+    }
+    componentWillUnmount() {
+        clearTimeout(barrageLoop);
     }
     config = {
         navigationBarTitleText: '祝福',
@@ -40,6 +52,7 @@ class Bless extends Component {
             "barrage": "../../components/miniprogram-barrage",
         }
     };
+
     onShareAppMessage () {
         const {
             invite
@@ -55,71 +68,94 @@ class Bless extends Component {
         const barrageComp = this.barrageComp.current;
         this.barrage = barrageComp.getBarrageInstance({
             font: 'bold 16px sans-serif',
-            duration: 10,
+            duration: 50,
             lineHeight: 2,
             mode: 'separate',
             padding: [10, 0, 10, 0],
             tunnelShow: false,
+            animationend: () => {
+                console.log('animationend');
+            }
         })
     }
 
     getInfo = () => {
-        Taro.showNavigationBarLoading();
-        cloud.get(
-            'wedding_video'
-        ).then((res) => {
-            if (res.errMsg === 'collection.get:ok') {
-                if (res.data.length <= 0) {
-                    this.setState({
-                        loadingStatus: 'noMore'
-                    });
-                } else {
-                    let info = res.data[0];
-                    const {
+        this.props.dispatchGetVideo().then((res) => {
+            if (res.data.length <= 0) {
+                this.setState({
+                    loadingStatus: 'noMore'
+                });
+            } else {
+                let info = res.data[0];
+                const {
+                    src,
+                    poster,
+                } = info;
+                this.setState({
+                    video: {
                         src,
                         poster,
-                    } = info;
+                    },
+                });
+                this.handleAddBarrage();
+                setTimeout(() => {
                     this.setState({
-                        video: {
-                            src,
-                            poster,
-                        },
-                    });
-                    this.handleAddBarrage(info.barrage);
-                    setTimeout(() => {
-                        this.setState({
-                            loadingStatus: 'isMore',
-                        })
-                    }, 150)
-                }
+                        loadingStatus: 'isMore',
+                    })
+                }, 150)
             }
-            Taro.hideNavigationBarLoading();
-            Taro.stopPullDownRefresh();
-        }, (err) => {
-            console.log(err);
-            Taro.stopPullDownRefresh();
-            Taro.hideNavigationBarLoading();
+        }, () => {
             this.setState({
                 loadingStatus: 'noMore'
-            });
-            Taro.showToast({
-                title: err.errMsg || '请求失败，请重试！',
-                icon: 'none',
-                duration: 3000
             });
         });
     };
 
-    handleAddBarrage (data) {
-        let barrage = data.map(item => {
-            return {
-                content: item,
-                color: getRandomColor()
+    handleAddBarrage () {
+        const {
+            isMore,
+            current
+        } = this.state;
+        if (!isMore) {
+            setTimeout(() => {
+                this.setState({
+                    barrageVisible: false
+                });
+                clearTimeout(barrageLoop);
+            }, 5000);
+            return false;
+        }
+        this.props.dispatchGetMsg(current).then(res => {
+            if (res.data.length <= 0) {
+                this.setState({
+                    isMore: false,
+                });
+            } else {
+                this.setState({
+                    current: current + 1
+                });
+                let barrage = res.data.map(item => {
+                    return {
+                        content: item.userMsg,
+                        color: getRandomColor()
+                    }
+                });
+                this.barrage.open();
+                this.barrage.addData(barrage);
+                barrageLoop = setTimeout(() => {
+                    this.handleAddBarrage();
+                }, 5000);
+                if (res.data.length < 10) {
+                    this.setState({
+                        isMore: false,
+                    });
+                }
             }
+        }, () => {
+            this.setState({
+                isMore: false,
+            });
         });
-        console.log(barrage);
-        this.barrage.open();
-        this.barrage.addData(barrage);
     };
 
     handleInput = (state, e) => {
@@ -180,6 +216,7 @@ class Bless extends Component {
         const {
             loadingStatus,
             video,
+            barrageVisible
         } = this.state;
 
         return (
@@ -198,7 +235,10 @@ class Bless extends Component {
                       enable-play-gesture
                       onError={this.handleVideoError.bind(this)}
                     >
-                        <barrage className='barrage' ref={this.barrageComp} />
+                        {
+                            barrageVisible &&
+                            <barrage className='barrage' ref={this.barrageComp} />
+                        }
                     </Video>
                 </View>
                 {/* 留言板 */}
