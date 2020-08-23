@@ -68,7 +68,7 @@ class Bless extends Component {
         const barrageComp = this.barrageComp.current;
         this.barrage = barrageComp.getBarrageInstance({
             font: 'bold 16px sans-serif',
-            duration: 50,
+            duration: 60,
             lineHeight: 2,
             mode: 'separate',
             padding: [10, 0, 10, 0],
@@ -90,8 +90,10 @@ class Bless extends Component {
                 const {
                     src,
                     poster,
+                    barrageVisible
                 } = info;
                 this.setState({
+                    barrageVisible,
                     video: {
                         src,
                         poster,
@@ -122,7 +124,7 @@ class Bless extends Component {
                     barrageVisible: false
                 });
                 clearTimeout(barrageLoop);
-            }, 5000);
+            }, 10000);
             return false;
         }
         this.props.dispatchGetMsg(current).then(res => {
@@ -144,7 +146,7 @@ class Bless extends Component {
                 this.barrage.addData(barrage);
                 barrageLoop = setTimeout(() => {
                     this.handleAddBarrage();
-                }, 5000);
+                }, 10000);
                 if (res.data.length < 10) {
                     this.setState({
                         isMore: false,
@@ -261,7 +263,7 @@ class Bless extends Component {
                     {/*    发送留言*/}
                     {/*</Button>*/}
                     <Button className='bless-tool__share' openType='share'>分享喜悦</Button>
-                    <Button className='bless-tool__share' onClick={this.handleAddBarrage.bind(this)}>开启弹幕</Button>
+                    {/*<Button className='bless-tool__share' onClick={this.handleAddBarrage.bind(this)}>开启弹幕</Button>*/}
                 </View>
 
                 {

@@ -254,7 +254,6 @@ exports.main = async function (event, context) {
 ## ToDos
 
 - [x] 弹幕完善
-- [x] 分享图生成
 - [x] ...
 
 这次的版本使用了Taro + 云开发，后面打算出一版`Taro + Antd + koa2 + MongoDb`的版本，初步内容已经差不错了，详见下面项目地址
