@@ -73,6 +73,10 @@
 
 ![云开发入口](https://7765-wedding-wxapp-1302175274.tcb.qcloud.la/wedding/imgs/preview.jpg)
 
+#### 视频演示
+
+[视频演示](https://7765-wedding-wxapp-1302175274.tcb.qcloud.la/wedding/imgs/show.mp4)
+
 ## 部署
 
 #### clone
@@ -90,6 +94,8 @@
 #### 新建数据库并导入
 
 ##### 
+
+表的设计
 
 - wedding_invite：婚礼信息
 
@@ -313,7 +319,7 @@ exports.main = async function (event, context) {
 
 ## 关于
 
-- [个人主页](http://www.forguo.cn)
+- [个人主页](https://www.forguo.cn)
 - [CSDN](https://blog.csdn.net/WEIGUO19951107/article/details/88411078)
 - [掘金](https://juejin.im/post/6844904015793242120)
 
@@ -324,4 +330,4 @@ exports.main = async function (event, context) {
 
 ---
 
-编码不易，感谢各位大佬的吐槽和`⭐`
+编码不易，感谢各位大佬的吐槽和[GitHub](https://github.com/wforguo/wedding-app)的Star
