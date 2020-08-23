@@ -8,12 +8,102 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/wforguo/wedding-app" title="趣婚礼">基于Taro + 云开发 打造婚礼邀请函</a>
+    <a href="https://github.com/wforguo/wedding-app" title="趣婚礼">基于Taro2 + 云开发 打造婚礼邀请函</a>
 </p>
 
-## 开始
+## 项目名称
 
-- 使用yarn
+- 趣婚礼
+
+- 基于`Taro2` + 云开发 打造婚礼邀请函
+
+> [Taro2](https://taro-docs.jd.com/taro/docs/2.2.11/README)
+
+> [云开发](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
+
+## 项目介绍
+
+- 结婚的时候婚礼邀请函是一道必不可少的程序，但是没法去很好的留存我们的数据和回忆（除非有后端支持）。
+最近刚好在学习`Taro`，所有就尝试基于`Taro` + 云开发快速的搭建一个婚礼邀请函小程序。
+
+- 也有人会问，使用了云开发，怎么去管理数据呢，不用担心，云开发`CMS`帮你搞定，支持文本、富文本、图片、文件、关联类型等多种类型的可视化编辑。
+
+[CMS GitHub](https://github.com/TencentCloudBase/cloudbase-extension-cms)
+
+> 具体使用方法参考**腾讯云云开发**专题：[云开发CMS内容管理系统专题](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg3NTA1NjcyNQ==&action=getalbum&album_id=1457486076368715776&subscene=159&subscene=21&scenenote=https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzg3NTA1NjcyNQ%3D%3D%26mid%3D2247487706%26idx%3D1%26sn%3Dc17f1dad0ecb4a71c710d53916f1e737%26chksm%3Dcec60be0f9b182f6ebb4e7c52d99723235f3498fd8ca743dbd6483ad3fc39c04b6432c2aff13%26scene%3D21%23wechat_redirect#wechat_redirect)
+
+## 项目效果截图
+
+#### 模块划分
+
+1. 邀请 =》邀请函信息
+2. 相册 =》相册展示
+3. 导航 =》婚礼举办地
+4. 祝福 =》婚礼视频及弹幕留言，留言保存至留言列表
+5. 留言 =》好友留言
+
+#### 目录结构
+
+```
+├── config                              # 配置文件
+├── cloud                               # 云函数存放
+├── dist                                # 打包文件
+├── node_modules                        # 依赖的模块包
+├── package.json                        # 项目基本信息
+├── src                                 # 项目的核心组件
+│   ├── service                         # 资源文件（css、image、config）
+│   ├── common                          # 资源文件（css、image、config）
+│   ├── components                      # 公共组件
+│   ├── store                           # 状态管理（redux）
+|   ├── pages                           # 页面文件目录
+|   |   ├── Index                       # index页面目录
+|   |   |   ├── index.jsx               # index页面逻辑
+|   |   |   └── index.scss              # index页面样式
+|   |   |   └── index.config.js         # index页面配置（小程序page.json内容）
+│   ├── util                            # 公共方法(util.js、globalData.js)
+│   ├── app.jsx                         # 入口文件
+│   ├── app.scss                        # 公共样式
+│   ├── index.html                      # 主页模板
+├── static                              # 静态资源(CDN)
+├── README.md                           # 项目描述信息
+
+```
+
+#### 效果预览
+
+![云开发入口](https://7765-wedding-wxapp-1302175274.tcb.qcloud.la/wedding/imgs/preview.jpg)
+
+## 部署
+
+#### clone
+
+`clone`该项目，并在`project.config.json`下修改自己的小程序`appid`
+
+#### 开通云开发
+
+![环境名称](https://7765-wedding-wxapp-1302175274.tcb.qcloud.la/wedding/imgs/db-id.png)
+
+首先需要你在小程序的控制台去开通云开发，并拿到环境名称
+
+在`src/service/config`下修改`DBID`为你自己申请的环境名城`；
+
+#### 新建数据库并导入
+
+##### 
+
+- wedding_invite：婚礼信息
+
+- wedding_msgs：留言祝福
+
+- wedding_photos：相册
+
+- wedding_video：视频
+
+数据库文件存放在`static/db`下，按照文件名新建数据库集合，并导入数据文件即可完成数据库创建。
+
+#### 项目启动
+
+- 使用`yarn`
 
 安装依赖
 
@@ -27,7 +117,7 @@ yarn
  yarn build:weapp
 ```
 
-- 使用npm
+- 使用`npm`
 
 安装依赖
 
@@ -41,6 +131,25 @@ yarn
  npm run build:weapp
 ```
 
+具体可查看`Taro`教程
+
+到此你就可以看到效果了...
+
+#### 云开发CMS的使用
+
+- 具体开通步骤就省略了，
+> 使用方法参考**腾讯云云开发**专题：[云开发CMS内容管理系统专题](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg3NTA1NjcyNQ==&action=getalbum&album_id=1457486076368715776&subscene=159&subscene=21&scenenote=https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzg3NTA1NjcyNQ%3D%3D%26mid%3D2247487706%26idx%3D1%26sn%3Dc17f1dad0ecb4a71c710d53916f1e737%26chksm%3Dcec60be0f9b182f6ebb4e7c52d99723235f3498fd8ca743dbd6483ad3fc39c04b6432c2aff13%26scene%3D21%23wechat_redirect#wechat_redirect)
+
+##### 看个效果图
+
+- CMS端
+![CMS](https://7765-wedding-wxapp-1302175274.tcb.qcloud.la/wedding/imgs/cms.png)
+
+- 小程序端
+![云开发](https://7765-wedding-wxapp-1302175274.tcb.qcloud.la/wedding/imgs/cloud.png)
+
+圈出来的部分适合小程序云开发控制台数据库所对应的.
+
 ## 技术及框架
 
 ### 1.小程序
@@ -52,37 +161,21 @@ yarn
 
 > 开发者可以使用云开发开发微信小程序、小游戏，无需搭建服务器，即可使用云端能力。包含云函数	、数据库、存储和云调用。
 
-### 2.Taro + Redux
+### 2.Taro2 + Redux
 
 [Taro 3](https://taro-docs.jd.com/taro/docs/README)
 
 > Taro 是一个开放式跨端跨框架解决方案，支持使用 React/Vue/Nerv 等框架来开发微信/京东/百度/支付宝/字节跳动/ QQ 小程序/H5 等应用。
 
-项目中使用了最新版本`Taro3`
+项目中使用了最新版本`Taro2`，由于`Taro3`使用期间不是很丝滑，所以选择了`Taro2`
 
 **所以本项目可以作为Taro的学习入门，也可以作为小程序云开发的一个入门Demo**
 
-### 3.WeUi
+### 3.TaroUI
 
-- [WeUi](https://developers.weixin.qq.com/miniprogram/dev/extended/weui/)
-- [Demo](https://github.com/wechat-miniprogram/weui-miniprogram/tree/master/tools/demo)
+基于Taro2的UI框架
 
-> 这是一套基于样式库weui-wxss开发的小程序扩展组件库，同微信原生视觉体验一致的UI组件库，由微信官方设计团队和小程序团队为微信小程序量身设计，令用户的使用感知更加统一。
-
-由于 Taro3 对应的[Taro UI](https://taro-ui.jd.com/#/)还在灰度当中，所以选择使用了 WeUI，小程序仅考虑在微信当中使用了。
-
-**考虑使用WeUI，主要有个好处，不占用包大小。**
-
-官方文档：
-> 通过 useExtendedLib 扩展库 的方式引入，这种方式引入的组件将不会计入代码包大小。
-```js
-// app.config.js中添加
-{
-    useExtendedLib: {
-        'weui': true
-    }
-}
-```
+[TaroUI](https://taro-ui.jd.com/#/docs/introduction)
 
 ## 云开发的使用
 
@@ -199,61 +292,9 @@ exports.main = async function (event, context) {
     });
 ```
 
-## 表设计
-
-- wedding_invite：婚礼信息
-
-- wedding_msgs：留言祝福
-
-- wedding_photos：相册
-
-- wedding_video：视频
-
-## CMS
-
-> 腾讯云`CloudBase CMS`
-
-[参考文章](https://mp.weixin.qq.com/s/tTjZ0l0NmuBrFa0BEuTMgg)
-
-## 项目结构
-
-- 模块划分
-
-1. 邀请 =》邀请函信息
-2. 相册 =》相册展示
-3. 导航 =》婚礼举办地
-4. 祝福 =》婚礼视频及弹幕留言，留言保存至留言列表
-5. 留言 =》好友留言
-
-- 目录结构
-
-```
-├── config                              # 配置文件
-├── cloud                               # 云函数存放
-├── dist                                # 打包文件
-├── node_modules                        # 依赖的模块包
-├── package.json                        # 项目基本信息
-├── src                                 # 项目的核心组件
-│   ├── service                         # 资源文件（css、image、config）
-│   ├── common                          # 资源文件（css、image、config）
-│   ├── components                      # 公共组件
-│   ├── store                           # 状态管理（redux）
-|   ├── pages                           # 页面文件目录
-|   |   ├── Index                       # index页面目录
-|   |   |   ├── index.jsx               # index页面逻辑
-|   |   |   └── index.scss              # index页面样式
-|   |   |   └── index.config.js         # index页面配置（小程序page.json内容）
-│   ├── util                            # 公共方法(util.js、globalData.js)
-│   ├── app.jsx                         # 入口文件
-│   ├── app.scss                        # 公共样式
-│   ├── index.html                      # 主页模板
-├── static                              # 静态资源(CDN)
-├── README.md                           # 项目描述信息
-
-```
 ## ToDos
 
-- [x] 弹幕完善
+- [x] 朋友圈海报生成...
 - [x] ...
 
 这次的版本使用了Taro + 云开发，后面打算出一版`Taro + Antd + koa2 + MongoDb`的版本，初步内容已经差不错了，详见下面项目地址

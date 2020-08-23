@@ -5,7 +5,7 @@ import './index.scss'
 import {getRandomColor} from "../../util";
 
 import LoadMore from "../../components/LoadMore";
-// import GetUserInfo from '../../components/GetUserInfo';
+import GetUserInfo from '../../components/GetUserInfo';
 
 import { dispatchSendMsg, dispatchGetMsg } from '../../store/actions/msg';
 import {
@@ -28,6 +28,7 @@ class Bless extends Component {
         super(props);
         this.barrageComp = Taro.createRef();
         this.state = {
+            msg: '',
             loadingStatus: 'loading',
             current: 0,
             isMore: true,
@@ -218,6 +219,7 @@ class Bless extends Component {
         const {
             loadingStatus,
             video,
+            msg,
             barrageVisible
         } = this.state;
 
@@ -243,25 +245,32 @@ class Bless extends Component {
                         }
                     </Video>
                 </View>
-                {/* 留言板 */}
-                {/* 傻叉不给通过，先隐藏吧*/}
-                {/*<View className='bless-msg'>*/}
-                {/*    <Textarea*/}
-                {/*      value={msg}*/}
-                {/*      show-confirm-bar confirm-type='发送'*/}
-                {/*      onInput={this.handleInput.bind(this, 'msg')}*/}
-                {/*      className='bless-msg-input'*/}
-                {/*      maxlength={200}*/}
-                {/*      placeholder='请输入弹幕留言，将同步到留言列表~'*/}
-                {/*      placeholderClass='placeholder-style'*/}
-                {/*    />*/}
-                {/*</View>*/}
+                 {/*留言板 */}
+                 {/*傻叉不给通过，先隐藏吧*/}
+                {
+                    barrageVisible &&
+                    <View className='bless-msg'>
+                        <Textarea
+                          value={msg}
+                          show-confirm-bar confirm-type='发送'
+                          onInput={this.handleInput.bind(this, 'msg')}
+                          className='bless-msg-input'
+                          maxlength={200}
+                          placeholder='请输入弹幕留言，将同步到留言列表~'
+                          placeholderClass='placeholder-style'
+                        />
+                    </View>
+                }
 
                 <View className='bless-tool'>
-                    {/*<Button className='bless-tool__send-msg'>*/}
-                    {/*    <GetUserInfo onHandleComplete={this.handleSendBless.bind(this)} />*/}
-                    {/*    发送留言*/}
-                    {/*</Button>*/}
+                    {
+                        barrageVisible &&
+                        <Button className='bless-tool__send-msg'>
+                            <GetUserInfo onHandleComplete={this.handleSendBless.bind(this)} />
+                            发送留言
+                        </Button>
+                    }
+
                     <Button className='bless-tool__share' openType='share'>分享喜悦</Button>
                     {/*<Button className='bless-tool__share' onClick={this.handleAddBarrage.bind(this)}>开启弹幕</Button>*/}
                 </View>
