@@ -31,9 +31,9 @@ class About extends Component {
                     icon: 'none'
                 })
             }
-        }, () => {
+        }, (err) => {
             Taro.showToast({
-                title: res.errMsg || '获取小程序码失败，将使用默认图片~',
+                title: err.errMsg || '获取小程序码失败，将使用默认图片~',
                 icon: 'none'
             })
         });
