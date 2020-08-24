@@ -169,7 +169,7 @@ yarn
 
 ### 2.Taro2 + Redux
 
-[Taro 3](https://taro-docs.jd.com/taro/docs/README)
+[Taro2](https://taro-docs.jd.com/taro/docs/2.2.11/README)
 
 > Taro 是一个开放式跨端跨框架解决方案，支持使用 React/Vue/Nerv 等框架来开发微信/京东/百度/支付宝/字节跳动/ QQ 小程序/H5 等应用。
 
