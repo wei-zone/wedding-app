@@ -9,7 +9,35 @@
 import Taro from "@tarojs/taro";
 import cloud from "../../service/cloud";
 
-// 获取用户信息
+// 获取留言列表
+export const dispatchGetMsg = (current) => {
+    return () => {
+        return new Promise((resolve, reject) => {
+            Taro.showNavigationBarLoading();
+            cloud.get('wedding_msgs', current).then((res) => {
+                if (res.errMsg === 'collection.get:ok') {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+                Taro.hideNavigationBarLoading();
+                Taro.stopPullDownRefresh();
+            }, (err) => {
+                console.log(err);
+                Taro.stopPullDownRefresh();
+                Taro.hideNavigationBarLoading();
+                Taro.showToast({
+                    title: err.errMsg || '请求失败，请重试！',
+                    icon: 'none',
+                    duration: 3000
+                });
+                reject(err);
+            });
+        });
+    }
+};
+
+// 发送留言
 export const dispatchSendMsg = (data) => {
     return () => {
         return new Promise((resolve, reject) => {

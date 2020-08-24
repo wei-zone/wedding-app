@@ -46,8 +46,12 @@ class Photo extends Component {
                 } else {
                     this.setState({
                         list: [ ...res.data],
-                        loadingStatus: 'isMore'
                     });
+                    setTimeout(() => {
+                        this.setState({
+                            loadingStatus: 'isMore'
+                        })
+                    }, 150)
                 }
             }
             Taro.hideNavigationBarLoading();

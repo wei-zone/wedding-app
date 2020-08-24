@@ -12,8 +12,12 @@
 		"postcss": false,
 		"compileHotReLoad": false,
 		"preloadBackgroundData": false,
+<<<<<<< HEAD
 		"minified": false,
 		"autoAudits": false,
+=======
+		"minified": true,
+>>>>>>> 2166b083f6650f3dc19fac71cc8ef72687f9fef6
 		"newFeature": false,
 		"uglifyFileName": false,
 		"uploadWithSourceMap": true,

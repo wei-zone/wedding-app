@@ -1,13 +1,21 @@
 import Taro, {Component} from '@tarojs/taro'
 import { Image, View } from '@tarojs/components';
+import {connect} from "@tarojs/redux";
 import LoadMore from "../../components/LoadMore";
 import SendMsg from "./components/SendMsg"
 import GetUserInfo from '../../components/GetUserInfo';
 import iconWrite from "../../common/img/icon-write.png";
 import './index.scss'
 
-import cloud from '../../service/cloud';
+import {dispatchGetMsg, dispatchSendMsg} from "../../store/actions/msg";
 
+@connect(({account, invite}) => ({
+    userInfo: account.userInfo,
+    invite: invite.invite
+}), {
+    dispatchSendMsg,
+    dispatchGetMsg
+})
 class Msg extends Component {
     state = {
         list: [],
@@ -56,41 +64,29 @@ class Msg extends Component {
         if (!isMore) {
             return false;
         }
-        Taro.showNavigationBarLoading();
-        cloud.get('wedding_msgs', current).then((res) => {
-            if (res.errMsg === 'collection.get:ok') {
-                if (res.data.length <= 0) {
+        this.props.dispatchGetMsg(current).then(res => {
+            if (res.data.length <= 0) {
+                this.setState({
+                    isMore: false,
+                    loadingStatus: 'noMore'
+                });
+            } else {
+                this.setState({
+                    list: [...this.state.list, ...res.data],
+                    current: current + 1
+                });
+                Taro.vibrateShort();
+                if (res.data.length < 10) {
                     this.setState({
                         isMore: false,
                         loadingStatus: 'noMore'
                     });
-                } else {
-                    this.setState({
-                        list: [...this.state.list, ...res.data],
-                        current: current + 1
-                    });
-                    if (res.data.length < 10) {
-                        this.setState({
-                            isMore: false,
-                            loadingStatus: 'noMore'
-                        });
-                    }
                 }
             }
-            Taro.hideNavigationBarLoading();
-            Taro.stopPullDownRefresh();
-        }, (err) => {
-            console.log(err);
-            Taro.stopPullDownRefresh();
-            Taro.hideNavigationBarLoading();
+        }, () => {
             this.setState({
                 isMore: false,
                 loadingStatus: 'noMore'
-            });
-            Taro.showToast({
-                title: err.errMsg || '请求失败，请重试！',
-                icon: 'none',
-                duration: 3000
             });
         });
     };
