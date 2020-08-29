@@ -13,8 +13,6 @@ $color-brand: $color-brand;
 // 按需引入样式
 @import "~taro-ui/dist/style/variables/default";
 @import "~taro-ui/dist/style/mixins/index";
-@import "~taro-ui/dist/style/components/icon";
-@import "~taro-ui/dist/style/components/flex";
 @import "~taro-ui/dist/style/components/button";
 @import "~taro-ui/dist/style/components/load-more";
 @import "~taro-ui/dist/style/components/activity-indicator";

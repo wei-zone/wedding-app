@@ -190,10 +190,10 @@ yarn
 **需要在控制台去开启云开发，并获取DBID（数据库初始化用到）**
 
 * 1. 云开发入口
-![云开发入口](https://user-gold-cdn.xitu.io/2019/12/7/16ee0888f00fc2de?w=490&h=233&f=png&s=15990)
+![云开发入口](https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/enter.png)
 
 * 2. 数据库配置
-![云开发](https://user-gold-cdn.xitu.io/2019/12/7/16ee0888f35bdc2a?w=1290&h=343&f=png&s=72422)
+![云开发](https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/cloud.png)
 
 ### 数据库
 
