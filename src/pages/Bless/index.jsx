@@ -235,7 +235,7 @@ class Bless extends Component {
                       id='video'
                       vslide-gesture
                       vslide-gesture-in-fullscreen
-                      autoplay
+                      autoplay={false}
                       enable-play-gesture
                       onError={this.handleVideoError.bind(this)}
                     >
