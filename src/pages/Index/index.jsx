@@ -25,19 +25,15 @@ import {
 })
 
 class Index extends Component {
-    state = {
-        navBarTop: 44 + 36 + 6 + 45,
-    };
 
     componentWillMount() {
-        this.getSystemInfo();
         this.getInviteInfo();
     }
 
     config = {
         navigationBarTitleText: '邀请函',
-        navigationStyle: 'custom',
         disableScroll: true,
+        backgroundColor: '#fff',
     };
 
     onShareAppMessage () {
@@ -55,26 +51,15 @@ class Index extends Component {
         this.props.dispatchGetInviteInfo();
     };
 
-    // 获取缓存的系统信息，设置按钮位置
-    getSystemInfo = () => {
-        let systemInfo = Taro.systemInfo;
-        let menuButtonInfo = Taro.menuButtonInfo;
-        this.setState({
-            navBarTop: (systemInfo.statusBarHeight || 44) + (menuButtonInfo.height || 32) + 6 + 20
-        });
-    };
-
     render() {
         const {
-            navBarTop,
         } = this.state;
         const {
             invite,
             loadingStatus
         } = this.props;
         return (
-            <View className='page invite'>
-                <Image className='invite-banner' src={invite.banner} />
+            <View className='page invite' style={{backgroundImage: 'url(' +  invite.banner + ')'}}>
                 <View className='invite-info'>
                     <Image className='invite-letter' src={inviteLetter} />
                     <View className='invite-couple'>
@@ -88,10 +73,7 @@ class Index extends Component {
                     </View>
                     <Image src={inviteTips} className='invite-tips' />
                 </View>
-                <View className='invite-tool' style={{
-                    top: `${navBarTop}px`
-                }}
-                >
+                <View className='invite-tool'>
                     {/* 关于 */}
                     <Navigator url='/pages/About/index' className='invite-tool-btn invite-tool-about'>
                         <Image src={iconAbout} className='invite-tool-icon invite-tool-about-icon' />

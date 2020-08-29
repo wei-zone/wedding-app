@@ -23,7 +23,6 @@ class Photo extends Component {
     }
     config = {
         navigationBarTitleText: '甜蜜相册',
-        navigationStyle: 'custom'
     };
     onShareAppMessage () {
         const {
@@ -149,7 +148,7 @@ class Photo extends Component {
             return (
                 <SwiperItem key={Math.random() * Math.random()}>
                     <View className='photo-swiper-item'>
-                        <Image mode='scaleToFill' className='photo-swiper-photo' src={item.src} lazyLoad onClick={this.handleImgSave.bind(this, item.src)} />
+                        <Image mode='widthFix' className='photo-swiper-photo' src={item.src} lazyLoad onClick={this.handleImgSave.bind(this, item.src)} />
                     </View>
                 </SwiperItem>
             )
@@ -158,7 +157,6 @@ class Photo extends Component {
 
     render() {
         const {
-            list,
             loadingStatus
         } = this.state;
         return (

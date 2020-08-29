@@ -4,6 +4,10 @@
     height: 100vh;
     overflow: hidden;
     position: relative;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: 100% auto;
     &-banner {
         width: 100%;
         height: 100%;
@@ -79,7 +83,7 @@
     }
     &-tool {
         position: absolute;
-        top: 190px;
+        top: 80px;
         right: 25px;
         &-btn {
             width: 80px;

@@ -1,6 +1,7 @@
 import Taro, {Component} from '@tarojs/taro'
 import { Image, View } from '@tarojs/components';
 import {connect} from "@tarojs/redux";
+import moment from "moment";
 import LoadMore from "../../components/LoadMore";
 import SendMsg from "./components/SendMsg"
 import GetUserInfo from '../../components/GetUserInfo';
@@ -54,6 +55,21 @@ class Msg extends Component {
     };
     onReachBottom () {
         this.getList();
+    };
+
+    onHandleAddMsg = (msg) => {
+        const DateFormat = 'YYYY-MM-DD HH:mm:ss';
+        let {
+            list
+        } = this.state;
+        list.unshift({
+            ...msg,
+            "createTime": moment().format(DateFormat)
+        });
+        console.log(list);
+        this.setState({
+            list
+        });
     };
 
     getList = () => {
@@ -145,7 +161,9 @@ class Msg extends Component {
                     </View>
                 </View>
 
-                <SendMsg visible={msgVisible} onHandleCloseMsg={() => {
+                <SendMsg visible={msgVisible} onHandleAddMsg={(msg) => {
+                    this.onHandleAddMsg(msg)
+                }} onHandleCloseMsg={() => {
                     this.setState({
                         msgVisible: false
                     })

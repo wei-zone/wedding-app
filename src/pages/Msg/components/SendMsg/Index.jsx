@@ -46,19 +46,21 @@ class SendMsg extends Component {
                 avatarUrl,
                 nickName
             } = userInfo;
-            this.props.dispatchSendMsg({
+            const params = {
                 userMsg: msg,
                 avatarUrl,
                 nickName,
                 type: 'msg'
-            }).then(() => {
+            };
+            this.props.dispatchSendMsg(params).then(() => {
+                this.props.onHandleAddMsg(params);
                 Taro.hideLoading();
                 Taro.showToast({
                     title: '留言成功~',
                 });
                 this.setState({
                     msg: ''
-                })
+                });
             }, (err) => {
                 Taro.hideLoading();
                 console.log(err);
