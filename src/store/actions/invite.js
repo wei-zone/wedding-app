@@ -22,7 +22,8 @@ export const dispatchGetInviteInfo = () => {
                         groomMobile,
                         startTime,
                         banner,
-                        location
+                        location,
+                        msg
                     } = data;
                     const {
                         address,
@@ -38,6 +39,7 @@ export const dispatchGetInviteInfo = () => {
                         startTime,
                         banner,
                         address: location.address,
+                        msg,
                         location: {
                             address,
                             fullAddress,

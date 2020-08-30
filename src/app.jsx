@@ -74,13 +74,13 @@ class App extends Component {
                 },
                 {
                     pagePath: 'pages/Bless/index',
-                    text: '祝福',
+                    text: '喜悦',
                     iconPath: 'common/tab/bless.png',
                     selectedIconPath: 'common/tab/bless-active.png'
                 },
                 {
                     pagePath: 'pages/Msg/index',
-                    text: '留言',
+                    text: '祝福',
                     iconPath: 'common/tab/msg.png',
                     selectedIconPath: 'common/tab/msg-active.png'
                 },

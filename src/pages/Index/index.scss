@@ -6,7 +6,7 @@
     position: relative;
     background-color: #fff;
     background-repeat: no-repeat;
-    background-position: 50% 0;
+    background-position: 50% 100%;
     background-size: 100% auto;
     &-banner {
         width: 100%;
@@ -88,7 +88,7 @@
         &-btn {
             width: 80px;
             height: 80px;
-            padding: 20px;
+            padding: 0;
             box-sizing: border-box;
             margin-bottom: 33px;
             background: $color-brand;
@@ -96,6 +96,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
         &-icon {
             width: 48px;

@@ -5,6 +5,7 @@ import {
 
 let defaultState = {
     invite: {
+        msg: false,
         groomName: '',
         brideName: '',
         startTime: '',

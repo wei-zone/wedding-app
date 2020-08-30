@@ -110,7 +110,7 @@ class SendMsg extends Component {
                                   confirm-type='发送'
                                   onConfirm={this.onSendMsg.bind(this)}
                                   onInput={this.handleInput.bind(this, 'msg')}
-                                  placeholder='请留下您的祝福，将同步到弹幕留言~'
+                                  placeholder='请留下您的祝福~'
                                   className='send-msg-inner__area'
                                   placeholderClass='placeholder-style'
                                   maxlength={200}

@@ -31,7 +31,7 @@ class Msg extends Component {
     }
     config = {
         enablePullDownRefresh: true,
-        navigationBarTitleText: '留言',
+        navigationBarTitleText: '祝福',
     };
     onShareAppMessage () {
         const {
@@ -139,7 +139,10 @@ class Msg extends Component {
             loadingStatus,
             msgVisible
         } = this.state;
-
+        const {
+            invite
+        } = this.props;
+        const { msg } = invite;
         return (
             <View className='page msg'>
                 <View className='msg-list'>
@@ -147,28 +150,36 @@ class Msg extends Component {
                         this.renderList()
                     }
                 </View>
+
                 <LoadMore loadingStatus={loadingStatus} />
-                <View className='msg-send'>
-                    <GetUserInfo onHandleComplete={() => {
+
+                {
+                    msg &&
+                    <View className='msg-send'>
+                        <GetUserInfo onHandleComplete={() => {
+                            this.setState({
+                                msgVisible: true
+                            })
+                        }}
+                        />
+                        <Image src={iconWrite} className='msg-send-icon' />
+                        <View className='msg-send-btn'>
+                            写祝福
+                        </View>
+                    </View>
+                }
+
+                {
+                    msg &&
+                    <SendMsg visible={msgVisible} onHandleAddMsg={(msg) => {
+                        this.onHandleAddMsg(msg)
+                    }} onHandleCloseMsg={() => {
                         this.setState({
-                            msgVisible: true
+                            msgVisible: false
                         })
                     }}
                     />
-                    <Image src={iconWrite} className='msg-send-icon' />
-                    <View className='msg-send-btn'>
-                        写祝福
-                    </View>
-                </View>
-
-                <SendMsg visible={msgVisible} onHandleAddMsg={(msg) => {
-                    this.onHandleAddMsg(msg)
-                }} onHandleCloseMsg={() => {
-                    this.setState({
-                        msgVisible: false
-                    })
-                }}
-                />
+                }
             </View>
         )
     }

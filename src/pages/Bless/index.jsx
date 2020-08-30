@@ -47,7 +47,7 @@ class Bless extends Component {
         clearTimeout(barrageLoop);
     }
     config = {
-        navigationBarTitleText: '祝福',
+        navigationBarTitleText: '喜悦',
         disableScroll: true,
         "usingComponents": {
             "barrage": "../../components/miniprogram-barrage",
@@ -93,6 +93,12 @@ class Bless extends Component {
                     poster,
                     barrageVisible
                 } = info;
+                if (!barrageVisible) {
+                    Taro.showModal({
+                        title: '提示',
+                        content: '敬请期待~'
+                    })
+                }
                 this.setState({
                     barrageVisible,
                     video: {
@@ -226,24 +232,27 @@ class Bless extends Component {
         return (
             <View className='page bless'>
                 <View className='bless-media'>
-                    <Video
-                      className='bless-media__video'
-                      src={video.src}
-                      loop controls
-                      poster={video.poster}
-                      initialTime='0'
-                      id='video'
-                      vslide-gesture
-                      vslide-gesture-in-fullscreen
-                      autoplay={false}
-                      enable-play-gesture
-                      onError={this.handleVideoError.bind(this)}
-                    >
-                        {
-                            barrageVisible &&
-                            <barrage className='barrage' ref={this.barrageComp} />
-                        }
-                    </Video>
+                    {
+                        barrageVisible &&
+                        <Video
+                          className='bless-media__video'
+                          src={video.src}
+                          loop controls
+                          poster={video.poster}
+                          initialTime='0'
+                          id='video'
+                          vslide-gesture
+                          vslide-gesture-in-fullscreen
+                          autoplay={false}
+                          enable-play-gesture
+                          onError={this.handleVideoError.bind(this)}
+                        >
+                            {
+                                barrageVisible &&
+                                <barrage className='barrage' ref={this.barrageComp} />
+                            }
+                        </Video>
+                    }
                 </View>
                  {/*留言板 */}
                  {/*傻叉不给通过，先隐藏吧*/}
