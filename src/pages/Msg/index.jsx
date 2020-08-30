@@ -171,8 +171,8 @@ class Msg extends Component {
 
                 {
                     msg &&
-                    <SendMsg visible={msgVisible} onHandleAddMsg={(msg) => {
-                        this.onHandleAddMsg(msg)
+                    <SendMsg visible={msgVisible} onHandleAddMsg={(msgT) => {
+                        this.onHandleAddMsg(msgT)
                     }} onHandleCloseMsg={() => {
                         this.setState({
                             msgVisible: false
