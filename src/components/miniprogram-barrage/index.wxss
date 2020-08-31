@@ -5,7 +5,7 @@
   /*
    *  修改弹幕高度，挡住了控制栏
    */
-  height: calc(100% - 200px);
+  height: calc(100% - 240px);
   pointer-events: auto;
 }
 .barrage-tunnel {

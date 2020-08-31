@@ -32,6 +32,7 @@ class Bless extends Component {
             loadingStatus: 'loading',
             current: 0,
             isMore: true,
+            videoVisible: true,
             barrageVisible: true,
             video: {
                 src: '',
@@ -91,16 +92,16 @@ class Bless extends Component {
                 const {
                     src,
                     poster,
-                    barrageVisible
+                    barrageVisible: videoVisible
                 } = info;
-                if (!barrageVisible) {
+                if (!videoVisible) {
                     Taro.showModal({
                         title: '提示',
                         content: '敬请期待~'
                     })
                 }
                 this.setState({
-                    barrageVisible,
+                    videoVisible,
                     video: {
                         src,
                         poster,
@@ -226,38 +227,39 @@ class Bless extends Component {
             loadingStatus,
             video,
             msg,
+            videoVisible,
             barrageVisible
         } = this.state;
 
         return (
             <View className='page bless'>
-                <View className='bless-media'>
-                    {
-                        barrageVisible &&
-                        <Video
-                          className='bless-media__video'
-                          src={video.src}
-                          loop controls
-                          poster={video.poster}
-                          initialTime='0'
-                          id='video'
-                          vslide-gesture
-                          vslide-gesture-in-fullscreen
-                          autoplay={false}
-                          enable-play-gesture
-                          onError={this.handleVideoError.bind(this)}
-                        >
-                            {
-                                barrageVisible &&
-                                <barrage className='barrage' ref={this.barrageComp} />
-                            }
-                        </Video>
-                    }
+                <View className='bless-media' style={{
+                    display: videoVisible ? 'block' : 'none'
+                }}
+                >
+                    <Video
+                      className='bless-media__video'
+                      src={video.src}
+                      loop controls
+                      poster={video.poster}
+                      initialTime='0'
+                      id='video'
+                      vslide-gesture
+                      vslide-gesture-in-fullscreen
+                      autoplay={false}
+                      enable-play-gesture
+                      onError={this.handleVideoError.bind(this)}
+                    >
+                        {
+                            barrageVisible &&
+                            <barrage className='barrage' ref={this.barrageComp} />
+                        }
+                    </Video>
                 </View>
                  {/*留言板 */}
                  {/*傻叉不给通过，先隐藏吧*/}
                 {
-                    barrageVisible &&
+                    videoVisible &&
                     <View className='bless-msg'>
                         <Textarea
                           value={msg}
@@ -273,7 +275,7 @@ class Bless extends Component {
 
                 <View className='bless-tool'>
                     {
-                        barrageVisible &&
+                        videoVisible &&
                         <Button className='bless-tool__send-msg'>
                             <GetUserInfo onHandleComplete={this.handleSendBless.bind(this)} />
                             发送留言
