@@ -6,6 +6,7 @@ import LoadMore from "../../components/LoadMore";
 import SendMsg from "./components/SendMsg"
 import GetUserInfo from '../../components/GetUserInfo';
 import iconWrite from "../../common/img/icon-write.png";
+import iconAttend from "../../common/img/icon-attend.png";
 import './index.scss'
 
 import {dispatchGetMsg, dispatchSendMsg} from "../../store/actions/msg";
@@ -33,6 +34,7 @@ class Msg extends Component {
         enablePullDownRefresh: true,
         navigationBarTitleText: '祝福',
     };
+
     onShareAppMessage () {
         const {
             invite
@@ -53,6 +55,7 @@ class Msg extends Component {
             this.getList();
         });
     };
+
     onReachBottom () {
         this.getList();
     };
@@ -142,7 +145,7 @@ class Msg extends Component {
         const {
             invite
         } = this.props;
-        const { msg } = invite;
+        const { msg } = invite; // Todo
         return (
             <View className='page msg'>
                 <View className='msg-list'>
@@ -164,7 +167,23 @@ class Msg extends Component {
                         />
                         <Image src={iconWrite} className='msg-send-icon' />
                         <View className='msg-send-btn'>
-                            写祝福
+                            留下祝福
+                        </View>
+                    </View>
+                }
+
+                {
+                    msg &&
+                    <View className='attend-send'>
+                        <GetUserInfo onHandleComplete={() => {
+                            Taro.navigateTo({
+                                url: '/pages/Attend/index'
+                            })
+                        }}
+                        />
+                        <Image src={iconAttend} className='attend-send-icon' />
+                        <View className='attend-send-btn'>
+                            我要出席
                         </View>
                     </View>
                 }

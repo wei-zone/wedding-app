@@ -11,7 +11,8 @@ let defaultState = {
         startTime: '',
         address: '',
         banner: '',
-        location: {}
+        location: {},
+        music: ''
     },
     statue: 'loading'
 };

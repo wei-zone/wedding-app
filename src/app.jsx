@@ -41,6 +41,7 @@ class App extends Component {
             'pages/Bless/index',
             'pages/Msg/index',
             'pages/About/index',
+            'pages/Attend/index',
         ],
         window: {
             backgroundTextStyle: 'dark',

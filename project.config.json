@@ -93,6 +93,12 @@
 					"pathName": "pages/Bless/index",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/Attend/index",
+					"pathName": "pages/Attend/index",
+					"scene": null
 				}
 			]
 		}

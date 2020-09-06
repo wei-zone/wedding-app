@@ -23,7 +23,8 @@ export const dispatchGetInviteInfo = () => {
                         startTime,
                         banner,
                         location,
-                        msg
+                        msg,
+                        music
                     } = data;
                     const {
                         address,
@@ -40,6 +41,7 @@ export const dispatchGetInviteInfo = () => {
                         banner,
                         address: location.address,
                         msg,
+                        music,
                         location: {
                             address,
                             fullAddress,
