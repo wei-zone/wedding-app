@@ -3,6 +3,8 @@ import {connect} from '@tarojs/redux';
 import { Navigator, Image, Button, View } from '@tarojs/components'
 import './index.scss'
 
+import Bgm from '../../components/Bgm';
+
 import inviteTips from '../../common/img/invite-tips.png';
 import inviteLetter from '../../common/img/invite-letter.png';
 import iconAbout from '../../common/img/icon-about.png';
@@ -53,8 +55,6 @@ class Index extends Component {
 
     render() {
         const {
-        } = this.state;
-        const {
             invite,
             loadingStatus
         } = this.props;
@@ -74,6 +74,8 @@ class Index extends Component {
                     <Image src={inviteTips} className='invite-tips' />
                 </View>
                 <View className='invite-tool'>
+                    {/* Bgm */}
+                    <Bgm />
                     {/* 关于 */}
                     <Navigator url='/pages/About/index' className='invite-tool-btn invite-tool-about'>
                         <Image src={iconAbout} className='invite-tool-icon invite-tool-about-icon' />
