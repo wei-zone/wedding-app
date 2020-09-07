@@ -1,5 +1,6 @@
 import Taro, {Component} from '@tarojs/taro'
-import { Image, Textarea, View } from '@tarojs/components';
+import { Image, View } from '@tarojs/components';
+import { AtTextarea } from 'taro-ui';
 import {connect} from '@tarojs/redux';
 import iconBack from "../../../../common/img/icon-msg-back.png";
 import iconSend from "../../../../common/img/icon-msg-send.png";
@@ -75,7 +76,6 @@ class SendMsg extends Component {
 
     // 阻止事件冒泡
     onTouchMove = (e) => {
-        console.log(e);
         e.stopPropagation();
     };
 
@@ -104,15 +104,16 @@ class SendMsg extends Component {
                                 </View>
                             </View>
                             <View className='send-msg-inner__input'>
-                                <Textarea
+                                <AtTextarea
+                                  count
                                   value={msg}
-                                  show-confirm-bar
-                                  confirm-type='发送'
+                                  showConfirmBar
                                   onConfirm={this.onSendMsg.bind(this)}
-                                  onInput={this.handleInput.bind(this, 'msg')}
+                                  onChange={this.handleInput.bind(this, 'msg')}
                                   placeholder='请留下您的祝福~'
                                   className='send-msg-inner__area'
                                   placeholderClass='placeholder-style'
+                                  height={330}
                                   maxlength={200}
                                 />
                             </View>

@@ -19,3 +19,32 @@ $color-brand: $color-brand;
 @import "~taro-ui/dist/style/components/load-more";
 @import "~taro-ui/dist/style/components/activity-indicator";
 @import "~taro-ui/dist/style/components/loading";
+@import "~taro-ui/dist/style/components/textarea.scss";
+@import "~taro-ui/dist/style/components/input.scss";
+@import "~taro-ui/dist/style/components/avatar.scss";
+
+
+// 修改原有Taro UI样式 === Input
+.at-input__title {
+    font-size: 14px * 2;
+    color: #666666;
+}
+.at-input input {
+    font-size: 14px * 2;
+    color: #333;
+}
+.long-label .at-input__title {
+    width: 145px * 2;
+}
+.placeholder {
+    font-size: 14px * 2;
+    color: #999;
+}
+.at-list__item {
+    font-size: 14px * 2;
+    color: #666666;
+    .item-extra__info {
+        font-size: 14px * 2;
+        color: #666666;
+    }
+}

@@ -66,8 +66,8 @@ Page {
     &-send {
         position: fixed;
         right: 0;
-        bottom: 200px;
-        width: 174px;
+        bottom: 210px;
+        width: 180px;
         height: 65px;
         background: $color-brand;
         border-bottom-left-radius: 34px;
@@ -77,15 +77,40 @@ Page {
         justify-content: space-between;
         opacity: 0.85;
         &-btn {
-            width: 95px;
-            font-size: 26px;
+            padding-right: 8px;
+            text-align: right;
+            font-size: 24px;
             font-weight:400;
             color:rgba(255,255,255,1);
         }
         &-icon {
-            width: 33px;
-            height: 33px;
-            margin-left: 26px;
+            width: 30px;
+            height: 30px;
+        }
+    }
+    .attend-send {
+        position: fixed;
+        right: 0;
+        bottom: 124px;
+        width: 180px;
+        height: 65px;
+        background: $color-brand;
+        border-bottom-left-radius: 34px;
+        border-top-left-radius: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        opacity: 0.85;
+        &-btn {
+            padding-right: 8px;
+            text-align: right;
+            font-size: 24px;
+            font-weight:400;
+            color:rgba(255,255,255,1);
+        }
+        &-icon {
+            width: 40px;
+            height: 40px;
         }
     }
 }

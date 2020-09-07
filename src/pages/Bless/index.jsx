@@ -92,7 +92,7 @@ class Bless extends Component {
                 const {
                     src,
                     poster,
-                    barrageVisible: videoVisible
+                    videoVisible
                 } = info;
                 if (!videoVisible) {
                     Taro.showModal({
@@ -248,6 +248,10 @@ class Bless extends Component {
                       vslide-gesture-in-fullscreen
                       autoplay={false}
                       enable-play-gesture
+                      onPlay={() => {
+                          // bgm暂停
+                          Taro.pauseBackgroundAudio()
+                      }}
                       onError={this.handleVideoError.bind(this)}
                     >
                         {
