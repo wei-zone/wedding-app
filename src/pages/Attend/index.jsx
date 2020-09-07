@@ -97,9 +97,9 @@ class Attend extends Component {
                 title: '提交成功~'
             });
             setTimeout(() => {
-                // Taro.navigateBack({
-                //     delta: 1
-                // })
+                Taro.navigateBack({
+                    delta: 1
+                })
             }, 800);
         });
         Taro.showLoading({
