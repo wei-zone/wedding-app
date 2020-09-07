@@ -3,8 +3,6 @@ import {View} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import './_index.scss';
 
-let musicUrl = 'https://isure.stream.qqmusic.qq.com/C4000043FXhy2dXGa8.m4a?guid=1473435776&vkey=32F551E35223E04D1A713E3520FAE93846D29F3B6E4F71ED30D7B98FC44E0161C339811FC9C2EEEBE22B50E205DBAA95E8AA362921F1F553&uin=0&fromtag=66';
-
 @connect(({invite}) => {
     return {
         invite: invite.invite,
@@ -18,10 +16,13 @@ export default class Bgm extends Component {
 
     componentDidMount() {
         console.log(this.props.invite);
+        let dataUrl = this.props.invite.musicUrl || '';
+        let coverImgUrl = this.props.invite.coverImgUrl || '';
+        let musicTitle = this.props.invite.musicTitle || '';
         Taro.playBackgroundAudio({
-            dataUrl: musicUrl,
-            title: '只想一生跟你走',
-            coverImgUrl: 'https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/logo.png'
+            dataUrl,
+            title: musicTitle,
+            coverImgUrl
         });
 
         // 监听背景音乐播放状态
@@ -50,11 +51,18 @@ export default class Bgm extends Component {
         this.setState({
             status: status === 'play' ? 'pause' : 'play'
         });
-        status === 'play' ? Taro.pauseBackgroundAudio() : Taro.playBackgroundAudio({
-            dataUrl: musicUrl,
-            title: '只想一生跟你走',
-            coverImgUrl: 'https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/logo.png'
-        });
+
+        let dataUrl = this.props.invite.musicUrl || '';
+        let coverImgUrl = this.props.invite.coverImgUrl || '';
+        let musicTitle = this.props.invite.musicTitle || '';
+        status === 'play' ?
+            Taro.pauseBackgroundAudio()
+            :
+            Taro.playBackgroundAudio({
+                dataUrl,
+                title: musicTitle,
+                coverImgUrl
+            });
     };
 
     render() {

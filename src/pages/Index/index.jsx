@@ -75,7 +75,10 @@ class Index extends Component {
                 </View>
                 <View className='invite-tool'>
                     {/* Bgm */}
-                    <Bgm />
+                    {
+                        invite.musicUrl &&
+                        <Bgm />
+                    }
                     {/* 关于 */}
                     <Navigator url='/pages/About/index' className='invite-tool-btn invite-tool-about'>
                         <Image src={iconAbout} className='invite-tool-icon invite-tool-about-icon' />
