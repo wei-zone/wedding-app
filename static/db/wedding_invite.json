@@ -1,7 +1,6 @@
 {
   "_id": "XIOSfonnuWjciyu1",
-  "music": "https://666f-forguo-0979a1-1251886253.tcb.qcloud.la/wxapp/wedding/static/your.mp3",
-  "banner": "https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/invite/banner.jpg",
+  "banner": "https://7765-wedding-wxapp-1302175274.tcb.qcloud.la/uploads/banner.jpg?sign=cc80a8bbb40d1a7df8c30a583b51299a&t=1598788941",
   "theme": "婚礼主题",
   "brideName": "黄总",
   "brideMobile": "17609491100",
@@ -15,5 +14,14 @@
     "longitude": 104.813263
   },
   "startTime": "2020/07/18",
-  "endTime": "2020/07/24"
+  "endTime": "2020/07/24",
+  "id": "XIOSfonnuWjciyu1",
+  "intro": "# wedding\n\n",
+  "updateTime": {
+    "$date": "2020-09-08T09:42:59.466Z"
+  },
+  "msg": false,
+  "coverImgUrl": "https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/logo.png",
+  "musicTitle": "只想一生跟你走",
+  "musicUrl": "https://7765-wedding-wxapp-1302175274.tcb.qcloud.la/wedding/music/wait.mp3"
 }
