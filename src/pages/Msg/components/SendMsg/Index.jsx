@@ -24,9 +24,9 @@ class SendMsg extends Component {
         this.props.onHandleCloseMsg();
     };
 
-    handleInput = (state, e) => {
+    handleInput = (state, value) => {
         this.setState({
-            [state]: e.detail.value
+            [state]: value
         })
     };
 

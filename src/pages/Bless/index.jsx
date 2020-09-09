@@ -77,6 +77,12 @@ class Bless extends Component {
             tunnelShow: false,
             animationend: () => {
                 console.log('animationend');
+                setTimeout(() => {
+                    this.setState({
+                        barrageVisible: false
+                    });
+                    clearTimeout(barrageLoop);
+                }, 500);
             }
         })
     }
@@ -127,12 +133,6 @@ class Bless extends Component {
             current
         } = this.state;
         if (!isMore) {
-            setTimeout(() => {
-                this.setState({
-                    barrageVisible: false
-                });
-                clearTimeout(barrageLoop);
-            }, 10000);
             return false;
         }
         this.props.dispatchGetMsg(current).then(res => {
@@ -193,10 +193,16 @@ class Bless extends Component {
                 userMsg: msg,
                 avatarUrl,
                 nickName,
-                type: 'danmu'
+                type: 'barrage'
             }).then(() => {
                 // 发送弹幕
-                this.barrage.addData(); // 添加弹幕数据
+                this.barrage.addData([
+                    {
+                        content: msg,
+                        color: getRandomColor()
+                    }
+                ]);
+                // 添加弹幕数据
                 Taro.hideLoading();
                 Taro.showToast({
                     title: '留言成功~',
