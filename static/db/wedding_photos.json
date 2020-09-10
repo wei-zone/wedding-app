@@ -1,9 +1,12 @@
 {
-  "_id": {
-    "$oid": "5f0b15aeb1bc1066b430ad6b"
+  "_id": "b1cb7d3a5f34a1b600831c7a049199ee",
+  "src": "https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/marry.jpg",
+  "createTime": {
+    "$date": "2020-08-13T02:13:10.191Z"
   },
-  "src": "https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/invite/banner.jpg",
-  "desc": "这是一张长图这是一张长图这是一张长图这是",
-  "createTime": "2020/07/12 21:52:46",
-  "__v": 0
+  "updateTime": {
+    "$date": "2020-08-14T15:11:28.255Z"
+  },
+  "desc": "9",
+  "id": "b1cb7d3a5f34a1b600831c7a049199ee"
 }

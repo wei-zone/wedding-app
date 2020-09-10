@@ -20,7 +20,7 @@ class App extends Component {
     componentWillMount() {
         Taro.hideTabBar(); // 默认进来先隐藏 tabBar，当首页数据加载完成会显示
         console.log(`%c Env %c ${process.env.NODE_ENV}`, 'padding: 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060', 'padding: 1px 5px 1px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e');
-        console.log(`%c author %c forguo`, 'padding: 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060', 'padding: 1px 5px 1px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #3bbcb1');
+        console.log(`%c author %c forguo`, 'padding: 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060', 'padding: 1px 5px 1px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #479edf');
         this.getSystemInfo(); // 获取系统信息
         this.checkVersion(); // 版本更新
     }

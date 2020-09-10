@@ -69,7 +69,6 @@ class Msg extends Component {
             ...msg,
             "createTime": moment().format(DateFormat)
         });
-        console.log(list);
         this.setState({
             list
         });
