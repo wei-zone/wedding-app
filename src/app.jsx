@@ -4,9 +4,7 @@ import configStore from './store'
 import Index from './pages/Index/index'
 import cloudConfig from './service/config'
 import './common/css/app.scss'
-
-// eslint-disable-next-line import/no-commonjs
-require('./util/mtj-wx-sdk.js');
+import './util/mtj-wx-sdk';
 
 // 设置全局分享
 Component.prototype.onShareAppMessage = function () {
