@@ -31,27 +31,6 @@ class Index extends Component {
     componentWillMount() {
         this.getInviteInfo();
     }
-    componentDidMount() {
-        // 在页面中定义插屏广告
-        let interstitialAd = null
-        // 在页面onLoad回调事件中创建插屏广告实例
-        if (Taro.createInterstitialAd) {
-            interstitialAd = Taro.createInterstitialAd({
-                adUnitId: 'adunit-0ef7a74ee5ce0dc9'
-            })
-            interstitialAd.onLoad(() => {})
-            interstitialAd.onError(() => {})
-            interstitialAd.onClose(() => {})
-        }
-
-        // 在适合的场景显示插屏广告
-        if (interstitialAd) {
-            interstitialAd.show().catch((err) => {
-                console.error(err)
-            })
-        }
-    }
-
     config = {
         navigationBarTitleText: '邀请函',
         disableScroll: true,
@@ -80,9 +59,6 @@ class Index extends Component {
         } = this.props;
         return (
             <View className='page invite' style={{backgroundImage: 'url(' +  invite.banner + ')'}}>
-                <View className='ad-container'>
-                    <ad unit-id='adunit-a46f1899f153c651' ad-intervals='60'></ad>
-                </View>
                 <View className='invite-info'>
                     <Image className='invite-letter' src={inviteLetter} />
                     <View className='invite-couple'>

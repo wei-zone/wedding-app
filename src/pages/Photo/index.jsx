@@ -21,6 +21,28 @@ class Photo extends Component {
     componentWillMount() {
         this.getList();
     }
+    componentDidMount() {
+
+        // 在页面中定义插屏广告
+        let interstitialAd = null
+        // 在页面onLoad回调事件中创建插屏广告实例
+        if (Taro.createInterstitialAd) {
+            interstitialAd = Taro.createInterstitialAd({
+                adUnitId: 'adunit-0ef7a74ee5ce0dc9'
+            })
+            interstitialAd.onLoad(() => {})
+            interstitialAd.onError(() => {})
+            interstitialAd.onClose(() => {})
+        }
+
+        // 在适合的场景显示插屏广告
+        if (interstitialAd) {
+            interstitialAd.show().catch((err) => {
+                console.error(err)
+            })
+        }
+    }
+
     config = {
         navigationBarTitleText: '甜蜜相册',
     };
