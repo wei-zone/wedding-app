@@ -53,7 +53,17 @@ export const dispatchGetInviteInfo = () => {
                             latitude
                         }
                     };
-                    Taro.showTabBar();
+                    Taro.showTabBar({
+                        fail: () => {
+                            Taro.showTabBar({
+                                fail: () => {
+                                    Taro.reLaunch({
+                                        url: '/pages/Index/index'
+                                    })
+                                }
+                            })
+                        }
+                    });
                     dispatch({
                         type: INVITE_INFO,
                         invite

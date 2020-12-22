@@ -49,7 +49,6 @@ class Bless extends Component {
     }
     config = {
         navigationBarTitleText: '喜悦',
-        disableScroll: true,
         "usingComponents": {
             "barrage": "../../components/miniprogram-barrage",
         }
