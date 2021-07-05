@@ -4,7 +4,7 @@
 </h3>
 
 <p align="center">
-  <a href="https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/qrcode.jpeg" title="趣婚礼 Logo"><img alt="趣婚礼 Logo" src="https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/qrcode.jpeg" width="180"></a>
+  <img alt="趣婚礼 Logo" src="https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/qrcode.jpeg" width="180">
 </p>
 
 <p align="center">
@@ -318,6 +318,14 @@ exports.main = async function (event, context) {
 `const barrageComp = this.selectComponent('.barrage')` 使用 `Taro.createRef();` 代替
 
 ## 关于
+
+<h3 align="center">
+  <a href="https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/wechart.jpg" title="微信：iforguo">微信：iforguo</a>
+</h3>
+
+<p align="center">
+  <img alt="微信：iforguo" src="https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/wechart.jpg" width="480">
+</p>
 
 - [个人主页](https://www.forguo.cn)
 - [CSDN](https://blog.csdn.net/WEIGUO19951107/article/details/88411078)
