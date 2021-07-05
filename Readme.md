@@ -326,7 +326,7 @@ exports.main = async function (event, context) {
 ---
 
 本项目仅供学习和交流，部分素材来源于网络，如有侵权联系删除。
-项目有需改进也请留言和Issues，如有合作请在[博客](https://blog.csdn.net/WEIGUO19951107/article/details/88411078)留言或私信q：（`224266461`）。
+项目有需改进也请留言和Issues，如有合作请在[博客](https://blog.csdn.net/WEIGUO19951107/article/details/88411078)留言或wx：（`iforguo`）。
 
 ---
 
