@@ -147,6 +147,9 @@ class Msg extends Component {
         const { msg } = invite; // Todo
         return (
             <View className='page msg'>
+                <View className='ad-container'>
+                    <ad unit-id='adunit-a46f1899f153c651' ad-intervals='33'></ad>
+                </View>
                 <View className='msg-list'>
                     {
                         this.renderList()

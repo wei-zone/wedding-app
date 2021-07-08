@@ -49,7 +49,6 @@ class Bless extends Component {
     }
     config = {
         navigationBarTitleText: '喜悦',
-        disableScroll: true,
         "usingComponents": {
             "barrage": "../../components/miniprogram-barrage",
         }
@@ -266,8 +265,13 @@ class Bless extends Component {
                         }
                     </Video>
                 </View>
-                 {/*留言板 */}
-                 {/*傻叉不给通过，先隐藏吧*/}
+
+                <View className='ad-container'>
+                    <ad unit-id='adunit-a46f1899f153c651' ad-intervals='33'></ad>
+                </View>
+
+                {/*留言板 */}
+                {/*傻叉不给通过，先隐藏吧*/}
                 {
                     videoVisible &&
                     <View className='bless-msg'>

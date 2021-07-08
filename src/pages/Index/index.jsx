@@ -31,7 +31,6 @@ class Index extends Component {
     componentWillMount() {
         this.getInviteInfo();
     }
-
     config = {
         navigationBarTitleText: '邀请函',
         disableScroll: true,
