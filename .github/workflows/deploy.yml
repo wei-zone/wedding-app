@@ -1,0 +1,43 @@
+name: Taro CI
+
+on: [push]
+# 触发构建动作
+#    push:
+#        # 触发构建分支[默认分支]
+#        branches: [ $default-branch ]
+#    pull_request:
+#        branches: [ $default-branch ]
+
+jobs:
+    build:
+
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node-version: [12.12.0]
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - name: Install Dependencies
+              run: yarn install
+            # 构建命令
+            - name: Build weapp
+              run: yarn run build:weapp
+
+            # 上传秘钥存放在 Project/Settings/Secrets/DEPLOY_PRIVATE_KEY
+            - name: Generate private key for upload
+              run: echo "$DEPLOY_PRIVATE_KEY" > private.key
+              env:
+                  DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+            # 获取 package.json 里的 version 字段，上传时用作小程序的版本号
+            - name: get package version
+              id: package-version
+              uses: martinbeentjes/npm-get-version-action@master
+            # 上传代码
+            - name: Upload to WeChat
+              run: npx miniprogram-ci upload --pp ./ --pkp=./private.key --appid ${{secrets.appId}} --uv ${{ steps.package-version.outputs.current-version}} --no-test

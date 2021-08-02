@@ -1,8 +1,8 @@
 {
-    "name": "weapp",
-    "version": "1.0.0",
+    "name": "weapp-app",
+    "version": "2.0.0",
     "private": true,
-    "description": "weapp",
+    "description": "weapp-app",
     "templateInfo": {
         "name": "redux",
         "typescript": false,
