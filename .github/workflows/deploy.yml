@@ -36,4 +36,4 @@ jobs:
                   DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
             # 上传代码
             - name: Upload to WeChat
-              run: npx miniprogram-ci upload --pp ./ --pkp=./private.key --appid ${{secrets.appId}} --no-test
+              run: npx miniprogram-ci upload --pp ./ --pkp=./private.key --appid ${{secrets.appId}} --uv 2.0.0 --no-test
