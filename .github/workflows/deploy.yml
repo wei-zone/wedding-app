@@ -11,6 +11,8 @@ on: [push]
 jobs:
     build:
 
+        ## centos 报错：Illegal operation on a directory，拿不到dist/npm的权限
+        ## macos 读不到package.json的version字段
         runs-on: macos-latest
 
         strategy:
