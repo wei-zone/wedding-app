@@ -6,3 +6,4 @@
 /cloud/functions/user/node_modules/
 /cloud/functions/msgCheck/node_modules/
 /cloud/functions/getQrcode/node_modules/
+/project.config.json
