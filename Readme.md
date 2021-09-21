@@ -28,9 +28,7 @@
 
 - 也有人会问，使用了云开发，怎么去管理数据呢，不用担心，云开发`CMS`帮你搞定，支持文本、富文本、图片、文件、关联类型等多种类型的可视化编辑。
 
-[CMS GitHub](https://github.com/TencentCloudBase/cloudbase-extension-cms)
-
-> 具体使用方法参考**腾讯云云开发**专题：[云开发CMS内容管理系统专题](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg3NTA1NjcyNQ==&action=getalbum&album_id=1457486076368715776&subscene=159&subscene=21&scenenote=https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzg3NTA1NjcyNQ%3D%3D%26mid%3D2247487706%26idx%3D1%26sn%3Dc17f1dad0ecb4a71c710d53916f1e737%26chksm%3Dcec60be0f9b182f6ebb4e7c52d99723235f3498fd8ca743dbd6483ad3fc39c04b6432c2aff13%26scene%3D21%23wechat_redirect#wechat_redirect)
+[CMS 概览](https://docs.cloudbase.net/cms/intro)
 
 ## 项目效果截图
 
@@ -144,17 +142,26 @@ yarn
 #### 云开发CMS的使用
 
 - 具体开通步骤就省略了，
-> 使用方法参考**腾讯云云开发**专题：[云开发CMS内容管理系统专题](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg3NTA1NjcyNQ==&action=getalbum&album_id=1457486076368715776&subscene=159&subscene=21&scenenote=https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzg3NTA1NjcyNQ%3D%3D%26mid%3D2247487706%26idx%3D1%26sn%3Dc17f1dad0ecb4a71c710d53916f1e737%26chksm%3Dcec60be0f9b182f6ebb4e7c52d99723235f3498fd8ca743dbd6483ad3fc39c04b6432c2aff13%26scene%3D21%23wechat_redirect#wechat_redirect)
+  
+[CMS文档](https://docs.cloudbase.net/cms/intro)
 
-##### 看个效果图
+#### CMS截图
 
-- CMS端
-![CMS](https://7765-wedding-wxapp-1302175274.tcb.qcloud.la/wedding/imgs/cms.png)
+##### CMS Web端
 
-- 小程序端
+**CMS端需要建立与数据库对应模型，才能展示对应数据库数据。**
+
+- 模型管理
+![CMS](https://cdn.nlark.com/yuque/0/2021/png/1088766/1632221818600-590d45cd-1970-4530-8e21-9fe1532fc761.png)
+
+- 内容管理
+![CMS](https://cdn.nlark.com/yuque/0/2021/png/1088766/1632221668534-53cc5780-08c1-4a14-add4-ced80cb8cfb1.png)
+
+##### 开发者工具端
+
 ![云开发](https://7765-wedding-wxapp-1302175274.tcb.qcloud.la/wedding/imgs/cloud.png)
 
-圈出来的部分适合小程序云开发控制台数据库所对应的.
+圈出来的部分是和小程序云开发控制台数据库所对应的.
 
 ## 技术及框架
 
