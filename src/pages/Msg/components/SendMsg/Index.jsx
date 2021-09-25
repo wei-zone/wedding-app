@@ -51,7 +51,8 @@ class SendMsg extends Component {
                 userMsg: msg,
                 avatarUrl,
                 nickName,
-                type: 'msg'
+                type: 'msg',
+                ...userInfo
             };
             this.props.dispatchSendMsg(params).then(() => {
                 this.props.onHandleAddMsg(params);

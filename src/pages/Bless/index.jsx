@@ -192,7 +192,8 @@ class Bless extends Component {
                 userMsg: msg,
                 avatarUrl,
                 nickName,
-                type: 'barrage'
+                type: 'barrage',
+                ...userInfo
             }).then(() => {
                 // 发送弹幕
                 this.barrage.addData([

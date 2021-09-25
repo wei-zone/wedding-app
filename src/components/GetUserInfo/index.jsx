@@ -14,26 +14,37 @@ import {
 
 class Photo extends Component {
     state = {
-        canIUse: Taro.canIUse('button.open-type.getUserInfo')
+        canIUseGetUserProfile: true
     };
 
     componentWillMount() {
-        // 查看是否授权
-        Taro.getSetting({
-            success: (res) => {
-                if (res.authSetting['scope.userInfo']) {
-                    // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-                    Taro.getUserInfo({
-                        success: (user) => {
-                            if (user.errMsg === 'getUserInfo:ok') {
-                                const userInfo = user.userInfo;
-                                this.props.dispatchGetUserInfo(userInfo);
+
+        // eslint-disable-next-line no-undef
+        if (wx.getUserProfile) {
+            this.setState({
+                canIUseGetUserProfile: true
+            })
+        } else {
+            Taro.getSetting({
+                success: (res) => {
+                    if (res.authSetting['scope.userInfo']) {
+                        // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+                        Taro.getUserInfo({
+                            success: (user) => {
+                                console.log('getUserInfo', user);
+                                if (user.errMsg === 'getUserInfo:ok') {
+                                    const userInfo = user.userInfo;
+                                    this.props.dispatchGetUserInfo(userInfo);
+                                }
                             }
-                        }
-                    })
+                        })
+                    }
                 }
-            }
-        })
+            })
+            this.setState({
+                canIUseGetUserProfile: false
+            })
+        }
     }
 
     componentDidShow() {
@@ -42,8 +53,13 @@ class Photo extends Component {
     componentDidHide() {
     }
 
-    // 获取用户信息
-    onGetUserInfo = (e) => {
+    /**
+     * 获取用户信息
+     * 旧版api
+     * @param e
+     */
+    handleGetUserInfo (e) {
+        console.log('userInfo', e);
         const StoreUserInfo = this.props.userInfo;
         if (StoreUserInfo) {
             this.props.onHandleComplete(StoreUserInfo);
@@ -59,19 +75,48 @@ class Photo extends Component {
                 })
             }
         }
+    }
+
+    /**
+     * 获取用户信息
+     * 新版api
+     */
+    handleGetUserProfile () {
+        const StoreUserInfo = this.props.userInfo;
+        if (StoreUserInfo) {
+            this.props.onHandleComplete(StoreUserInfo);
+        } else {
+            // eslint-disable-next-line no-undef
+            wx.getUserProfile({
+                desc: '用于用户信息展示', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+                success: (e) => {
+                    console.log('userInfo', e);
+                    if (e.errMsg === 'getUserProfile:ok') {
+                        const userInfo = e.userInfo;
+                        this.props.onHandleComplete(userInfo);
+                        this.props.dispatchGetUserInfo(userInfo);
+                    } else {
+                        Taro.showToast({
+                            title: '取消授权！',
+                            icon: 'none'
+                        })
+                    }
+                }
+            })
+        }
     };
 
     render() {
         const {
-            canIUse
+            canIUseGetUserProfile
         } = this.state;
         return (
             <View className='get-user-info'>
                 {
-                    canIUse ?
-                    <Button className='get-user-info-btn' open-type='getUserInfo' onGetUserInfo={this.onGetUserInfo.bind(this)} />
+                    canIUseGetUserProfile ?
+                        <Button className='get-user-info-btn' onClick={this.handleGetUserProfile.bind(this)} />
                         :
-                    <View>请升级微信版本</View>
+                        <Button className='get-user-info-btn' open-type='getUserInfo' onGetUserInfo={this.handleGetUserInfo.bind(this)} />
                 }
             </View>
         )

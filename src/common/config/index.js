@@ -1,12 +1,12 @@
 export default{
     'dev': {
-        'api': 'https://www.forguo.cn',
+        'api': 'https://forguo.cn',
     },
     'uat': {
-        'api': 'https://www.forguo.cn',
+        'api': 'https://forguo.cn',
     },
     'prod': {
-        'api': 'https://www.forguo.cn',
+        'api': 'https://forguo.cn',
     },
     'env': 'dev'
 };
