@@ -141,7 +141,7 @@ yarn
 
 #### 云开发CMS的使用
 
-- 具体开通步骤就省略了，
+> 用于管理云开发数据的CMS
   
 [CMS文档](https://docs.cloudbase.net/cms/intro)
 
@@ -149,12 +149,16 @@ yarn
 
 ##### CMS Web端
 
-**CMS端需要建立与数据库对应模型，才能展示对应数据库数据。**
+**CMS端需要建立与数据库对应的内容模型，才能在列表正常展示对应数据库数据。**
+
+> 可直接导入内容模型，位于 static/schema
 
 - 模型管理
+
 ![CMS](https://cdn.nlark.com/yuque/0/2021/png/1088766/1632221818600-590d45cd-1970-4530-8e21-9fe1532fc761.png)
 
 - 内容管理
+
 ![CMS](https://cdn.nlark.com/yuque/0/2021/png/1088766/1632221668534-53cc5780-08c1-4a14-add4-ced80cb8cfb1.png)
 
 ##### 开发者工具端
