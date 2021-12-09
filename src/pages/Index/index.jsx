@@ -52,6 +52,29 @@ class Index extends Component {
         this.props.dispatchGetInviteInfo();
     };
 
+    getJoke () {
+        wx.serviceMarket.invokeService({
+            service: 'wxcae50ba710ca29d3',
+            api: 'jokebot',
+            data: {
+                "mode": 4, // 输入类型编码，1: 冷笑话, 2: 普通笑话, 3: 浪漫情话, 4: 土味情话, 5: 心灵鸡汤
+            },
+        }).then(res => {
+            if (res.errMsg === "invokeService:ok") {
+                console.log(res.data.data_list);
+                Taro.showModal({
+                    title: '笑话',
+                    content: res.data.data_list[0].result,
+                })
+            }
+        }).catch(err => {
+            Taro.showModal({
+                title: 'fail',
+                content: err + '',
+            })
+        })
+    }
+
     render() {
         const {
             invite,
@@ -78,13 +101,18 @@ class Index extends Component {
                         invite.musicUrl &&
                         <Bgm />
                     }
-                    {/* 关于 */}
+                     {/*关于 */}
                     <Navigator url='/pages/About/index' className='invite-tool-btn invite-tool-about'>
                         <Image src={iconAbout} className='invite-tool-icon invite-tool-about-icon' />
                     </Navigator>
                     {/* 分享 */}
                     <Button openType='share' className='invite-tool-btn invite-tool-share'>
                         <Image src={iconShare} className='invite-tool-icon invite-tool-share-icon' />
+                    </Button>
+
+                    {/* 分享 */}
+                    <Button className='invite-tool-btn invite-tool-share' onClick={this.getJoke.bind(this)}>
+                        讲个笑话
                     </Button>
                 </View>
                 {
