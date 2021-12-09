@@ -29,9 +29,16 @@
             font-size: 26px;
         }
     }
+    .send-msg-random {
+        font-size: 26px;
+        font-weight: 400;
+        text-align: center;
+        color: $color-brand;
+        margin-top: 6px;
+    }
     &-tool {
         width: 630px;
-        margin: 50px auto;
+        margin: 24px auto 50px;
         display: flex;
         align-items: center;
         justify-content: space-between;

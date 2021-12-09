@@ -80,6 +80,58 @@ class SendMsg extends Component {
         e.stopPropagation();
     };
 
+    // 情话服务
+    getJoke () {
+
+        // 随机数
+        function random(min, max) {
+            if(max == null) {
+                max = min;
+                min = 0;
+            }
+            return min + Math.floor(Math.random() * (max - min + 1));
+        }
+
+        Taro.showLoading({
+            title: '请稍后...',
+            mask: true,
+        });
+        const mode = random(3, 4); // 输入类型编码，1: 冷笑话, 2: 普通笑话, 3: 浪漫情话, 4: 土味情话, 5: 心灵鸡汤
+        console.log({
+            '3': '浪漫情话',
+            '4': '土味情话',
+        }[mode]);
+        // eslint-disable-next-line no-undef
+        wx.serviceMarket.invokeService({
+            service: 'wxcae50ba710ca29d3',
+            api: 'jokebot',
+            data: {
+                mode
+            },
+        }).then(res => {
+            Taro.hideLoading();
+            if (res.errMsg === "invokeService:ok") {
+                console.log(res.data.data_list);
+                if (res.data.data_list && res.data.data_list.length > 0) {
+                    this.setState({
+                        msg: res.data.data_list[0].result || '',
+                    });
+                }
+            } else {
+                Taro.showModal({
+                    title: '获取失败，请手动输入吧~',
+                    content: res.errMsg,
+                })
+            }
+        }).catch(err => {
+            Taro.hideLoading();
+            Taro.showModal({
+                title: '获取失败，请手动输入吧~',
+                content: err + '',
+            })
+        })
+    }
+
     render() {
         const {
             visible,
@@ -117,6 +169,7 @@ class SendMsg extends Component {
                                   height={330}
                                   maxlength={200}
                                 />
+                                <View className='send-msg-random' onClick={this.getJoke.bind(this)}>随机来一条</View>
                             </View>
                         </View>
                     </View>

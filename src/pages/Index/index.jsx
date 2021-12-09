@@ -16,6 +16,9 @@ import {
     dispatchGetInviteInfo
 } from "../../store/actions/invite";
 
+// 在页面中定义插屏广告
+let interstitialAd = null
+
 @connect(({account, invite}) => {
     return {
         invite: invite.invite,
@@ -29,8 +32,30 @@ import {
 class Index extends Component {
 
     componentWillMount() {
+        // 在页面中定义插屏广告
+        // 在页面onLoad回调事件中创建插屏广告实例
+        if (Taro.createInterstitialAd) {
+            interstitialAd = Taro.createInterstitialAd({
+                adUnitId: 'adunit-0ef7a74ee5ce0dc9'
+            })
+            interstitialAd.onLoad(() => {})
+            interstitialAd.onError(() => {})
+            interstitialAd.onClose(() => {})
+        }
         this.getInviteInfo();
     }
+
+    // tab 点击时执行
+    onTabItemTap(item) {
+        console.log(item);
+        // 在适合的场景显示插屏广告
+        if (interstitialAd) {
+            interstitialAd.show().catch((err) => {
+                console.error(err)
+            })
+        }
+    }
+
     config = {
         navigationBarTitleText: '邀请函',
         disableScroll: true,
@@ -51,29 +76,6 @@ class Index extends Component {
     getInviteInfo = () => {
         this.props.dispatchGetInviteInfo();
     };
-
-    getJoke () {
-        wx.serviceMarket.invokeService({
-            service: 'wxcae50ba710ca29d3',
-            api: 'jokebot',
-            data: {
-                "mode": 4, // 输入类型编码，1: 冷笑话, 2: 普通笑话, 3: 浪漫情话, 4: 土味情话, 5: 心灵鸡汤
-            },
-        }).then(res => {
-            if (res.errMsg === "invokeService:ok") {
-                console.log(res.data.data_list);
-                Taro.showModal({
-                    title: '笑话',
-                    content: res.data.data_list[0].result,
-                })
-            }
-        }).catch(err => {
-            Taro.showModal({
-                title: 'fail',
-                content: err + '',
-            })
-        })
-    }
 
     render() {
         const {
@@ -110,10 +112,6 @@ class Index extends Component {
                         <Image src={iconShare} className='invite-tool-icon invite-tool-share-icon' />
                     </Button>
 
-                    {/* 分享 */}
-                    <Button className='invite-tool-btn invite-tool-share' onClick={this.getJoke.bind(this)}>
-                        讲个笑话
-                    </Button>
                 </View>
                 {
                     loadingStatus === 'loading' &&

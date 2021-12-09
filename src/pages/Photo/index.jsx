@@ -6,6 +6,9 @@ import './index.scss'
 import cloud from '../../service/cloud';
 import LoadMore from "../../components/LoadMore";
 
+// 在页面中定义插屏广告
+let interstitialAd = null
+
 @connect(({account, invite}) => ({
     userInfo: account.userInfo,
     invite: invite.invite,
@@ -19,12 +22,6 @@ class Photo extends Component {
     };
 
     componentWillMount() {
-        this.getList();
-    }
-    componentDidMount() {
-
-        // 在页面中定义插屏广告
-        let interstitialAd = null
         // 在页面onLoad回调事件中创建插屏广告实例
         if (Taro.createInterstitialAd) {
             interstitialAd = Taro.createInterstitialAd({
@@ -34,7 +31,12 @@ class Photo extends Component {
             interstitialAd.onError(() => {})
             interstitialAd.onClose(() => {})
         }
+        this.getList();
+    }
 
+    // tab 点击时执行
+    onTabItemTap(item) {
+        console.log(item);
         // 在适合的场景显示插屏广告
         if (interstitialAd) {
             interstitialAd.show().catch((err) => {
@@ -42,7 +44,6 @@ class Photo extends Component {
             })
         }
     }
-
     config = {
         navigationBarTitleText: '甜蜜相册',
     };
