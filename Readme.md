@@ -11,6 +11,8 @@
     <a href="https://github.com/wforguo/wedding-app" title="趣婚礼">基于Taro2 + 云开发 打造婚礼邀请函</a>
 </p>
 
+有问题请issue
+
 ## 项目名称
 
 - 趣婚礼
@@ -345,8 +347,13 @@ exports.main = async function (event, context) {
 ---
 
 本项目仅供学习和交流，部分素材来源于网络，如有侵权联系删除。
-项目有需改进也请留言和Issues，如有合作请在[博客](https://blog.csdn.net/WEIGUO19951107/article/details/88411078)留言或wx：（`iforguo`）。
+项目有需改进也请留言和Issues，
+如有合作请在[博客](https://blog.csdn.net/WEIGUO19951107/article/details/88411078)留言或wx：（`iforguo`）。
 
 ---
 
 编码不易，感谢各位大佬的吐槽和[GitHub](https://github.com/wforguo/wedding-app)的Star
+
+
+有问题请issue【这样也方便别人查阅】
+
