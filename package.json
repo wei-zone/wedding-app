@@ -50,7 +50,7 @@
         "babel-runtime": "^6.26.0",
         "classnames": "latest",
         "miniprogram-barrage": "^1.1.0",
-        "moment": "^2.27.0",
+        "moment": "^2.29.2",
         "nerv-devtools": "^1.5.5",
         "nervjs": "^1.5.5",
         "prop-types": "^15.7.2",
