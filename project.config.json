@@ -41,68 +41,57 @@
   "compileType": "miniprogram",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
-  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
   "libVersion": "2.19.5",
   "condition": {
-    "search": {
-      "list": []
-    },
-    "conversation": {
-      "list": []
-    },
-    "plugin": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
     "miniprogram": {
       "list": [
         {
-          "id": 0,
           "name": "pages/About/index",
           "pathName": "pages/About/index",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "pages/Msg/index",
           "pathName": "pages/Msg/index",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "pages/Photo/index",
           "pathName": "pages/Photo/index",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "pages/Location/index",
           "pathName": "pages/Location/index",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "pages/Bless/index",
           "pathName": "pages/Bless/index",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
           "name": "pages/Attend/index",
           "pathName": "pages/Attend/index",
+          "query": "",
           "scene": null
         }
       ]
     }
+  },
+  "srcMiniprogramRoot": "dist/",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "editorSetting": {
+    "tabIndent": "auto",
+    "tabSize": 2
   }
 }
