@@ -1,10 +1,10 @@
 import Taro, {Component} from '@tarojs/taro'
 import { Button, View } from '@tarojs/components'
 import {connect} from '@tarojs/redux';
-import './index.scss'
 import {
     dispatchGetUserInfo
-} from "../../store/actions/account";
+} from "@/apis/account";
+import './index.scss'
 
 @connect(({account}) => ({
     userInfo: account.userInfo

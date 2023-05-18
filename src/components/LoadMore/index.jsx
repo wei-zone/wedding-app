@@ -1,5 +1,4 @@
 import Taro, {Component} from '@tarojs/taro'
-import {View} from '@tarojs/components'
 import { AtLoadMore } from 'taro-ui'
 import './index.scss'
 
@@ -10,14 +9,12 @@ class LoadMore extends Component {
             noMoreText // 没有更多的文案
         } = this.props;
         return (
-            <View className='we-load-more'>
-                <AtLoadMore
-                  status={loadingStatus}
-                  noMoreTextStyle='font-size: 14px'
-                  loadingText='加载中...'
-                  noMoreText={noMoreText}
-                />
-            </View>
+            <AtLoadMore
+              status={loadingStatus}
+              noMoreTextStyle='font-size: 14px'
+              loadingText='加载中...'
+              noMoreText={noMoreText}
+            />
         )
     }
 }

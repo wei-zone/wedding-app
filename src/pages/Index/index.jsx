@@ -1,49 +1,38 @@
 import Taro, {Component} from '@tarojs/taro'
 import {connect} from '@tarojs/redux';
-import { Navigator, Image, Button, View } from '@tarojs/components'
-import './index.scss'
-
-import Bgm from '../../components/Bgm';
-
-import inviteTips from '../../common/img/invite-tips.png';
-import inviteLetter from '../../common/img/invite-letter.png';
-import iconAbout from '../../common/img/icon-about.png';
-import iconShare from '../../common/img/icon-share.png';
-
-import LoadMore from "../../components/LoadMore";
+import {Image, Button, View, Navigator,} from '@tarojs/components'
 
 import {
     dispatchGetInviteInfo
-} from "../../store/actions/invite";
+} from "@/apis/invite";
+
+import Bgm from '@/components/Bgm';
+import LoadMore from "@/components/LoadMore";
+// import inviteTips from '../../assets/img/invite-tips.png';
+// import inviteLetter from '../../assets/img/invite-letter.png';
+import iconAbout from '../../assets/img/icon-about.png';
+import iconShare from '../../assets/img/icon-share.png';
+import './index.scss'
 
 // 在页面中定义插屏广告
 let interstitialAd = null
 
-@connect(({account, invite}) => {
+@connect(({invite}) => {
     return {
         invite: invite.invite,
-        loadingStatus: invite.statue,
-        userInfo: account.userInfo
+        loadingStatus: invite.status,
     }
 }, {
     dispatchGetInviteInfo
 })
 
 class Index extends Component {
-
-    componentWillMount() {
-        // 在页面中定义插屏广告
-        // 在页面onLoad回调事件中创建插屏广告实例
-        if (Taro.createInterstitialAd) {
-            interstitialAd = Taro.createInterstitialAd({
-                adUnitId: 'adunit-0ef7a74ee5ce0dc9'
-            })
-            interstitialAd.onLoad(() => {})
-            interstitialAd.onError(() => {})
-            interstitialAd.onClose(() => {})
-        }
-        this.getInviteInfo();
-    }
+    config = {
+        navigationBarTitleText: '请柬',
+        navigationStyle: 'custom',
+        backgroundColor: '#fff',
+        disableScroll: true,
+    };
 
     // tab 点击时执行
     onTabItemTap(item) {
@@ -56,26 +45,16 @@ class Index extends Component {
         }
     }
 
-    config = {
-        navigationBarTitleText: '邀请函',
-        disableScroll: true,
-        backgroundColor: '#fff',
-    };
-
-    onShareAppMessage () {
+    onShareAppMessage() {
         const {
             invite
         } = this.props;
         return {
             title: `诚邀您参加${invite.groomName}&${invite.brideName}的婚礼`,
             path: '/pages/Index/index',
+            imageUrl: 'https://forguo.cn/assets/wedding-app/imgs/share.png',
         }
     }
-
-    // 获取邀请函信息
-    getInviteInfo = () => {
-        this.props.dispatchGetInviteInfo();
-    };
 
     render() {
         const {
@@ -83,20 +62,20 @@ class Index extends Component {
             loadingStatus
         } = this.props;
         return (
-            <View className='page invite' style={{backgroundImage: 'url(' +  invite.banner + ')'}}>
-                <View className='invite-info'>
-                    <Image className='invite-letter' src={inviteLetter} />
-                    <View className='invite-couple'>
-                        <View className='invite-groom'>Mr.{invite.groomName}</View>
-                        <View className='invite-bride'>Miss.{invite.brideName}</View>
-                    </View>
-                    <View className='invite-date'>{invite.startTime}</View>
-                    <View className='invite-address'>{invite.address}</View>
-                    <View className='invite-address-tips'>
-                        诚/挚/邀/请/您/参/加/我/们/的/婚/礼
-                    </View>
-                    <Image src={inviteTips} className='invite-tips' />
-                </View>
+            <View className='page invite' style={{backgroundImage: 'url(' +  invite.backgroundImage + ')', backgroundColor: invite.backgroundColor}}>
+                {/*<View className='invite-info'>*/}
+                {/*    <Image className='invite-letter' src={inviteLetter} />*/}
+                {/*    <View className='invite-couple'>*/}
+                {/*        <View className='invite-groom'>新郎：{invite.groomName}</View>*/}
+                {/*        <View className='invite-bride'>新娘：{invite.brideName}</View>*/}
+                {/*    </View>*/}
+                {/*    <View className='invite-date'>{invite.startTime}</View>*/}
+                {/*    <View className='invite-address'>{invite.address}</View>*/}
+                {/*    <View className='invite-address-tips'>*/}
+                {/*        诚/挚/邀/请/您/参/加/我/们/的/婚/礼*/}
+                {/*    </View>*/}
+                {/*    <Image src={inviteTips} className='invite-tips' />*/}
+                {/*</View>*/}
                 <View className='invite-tool'>
                     {/* Bgm */}
                     {
@@ -111,7 +90,6 @@ class Index extends Component {
                     <Button openType='share' className='invite-tool-btn invite-tool-share'>
                         <Image src={iconShare} className='invite-tool-icon invite-tool-share-icon' />
                     </Button>
-
                 </View>
                 {
                     loadingStatus === 'loading' &&

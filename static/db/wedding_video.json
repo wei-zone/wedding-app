@@ -1,10 +1,9 @@
-{
-  "_id": "2088063f5f25665c000014eab72e9affd",
-  "src": "https://7765-wedding-wxapp-1302175274.tcb.qcloud.la/wedding/video/huang.mp4?sign=2c4f0e4ba750f03d1579e3d485ec58cd&t=1599374196",
-  "poster": "https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/marry.jpg",
-  "id": "2088063f5f25665c00014eab72e9affd",
-  "updateTime": {
-    "$date": "2020-09-08T05:29:15.672Z"
-  },
-  "videoVisible": false
-}
+[
+    {
+        "_createTime": 1599558179466,
+        "_updateTime": 1599558179466,
+        "src": "https://7765-wedding-wxapp-1302175274.tcb.qcloud.la/wedding/video/huang.mp4?sign=2c4f0e4ba750f03d1579e3d485ec58cd&t=1599374196",
+        "poster": "https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/marry.jpg",
+        "videoVisible": false
+    }
+]

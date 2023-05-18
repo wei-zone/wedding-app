@@ -3,41 +3,18 @@ import { Button, Image, View, Text } from '@tarojs/components'
 import {connect} from '@tarojs/redux';
 import './index.scss'
 
-@connect(({account, invite}) => ({
-    userInfo: account.userInfo,
+@connect(({ invite}) => ({
     invite: invite.invite,
 }))
 
 class About extends Component {
 
     state = {
-        qrcode: 'https://7765-wedding-wxapp-1302175274.tcb.qcloud.la/wedding/imgs/qrcode.jpeg',
+        qrcode: 'https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/qrcode.jpeg',
         logo: 'https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/logo.png',
         wxcode: 'https://forguo-1302175274.cos.ap-shanghai.myqcloud.com/wedding/assets/img/wechart.jpg'
     };
 
-    componentDidMount() {
-        Taro.cloud.callFunction({
-            name: 'getQrcode',
-        }).then(res => {
-            console.log(res);
-            if (res.errMsg === 'cloud.callFunction:ok' && res.result.errCode === 0) {
-                this.setState({
-                    qrcode: res.result.qrcode
-                })
-            } else {
-                Taro.showToast({
-                    title: res.result.errMsg || '获取小程序码失败，将使用默认图片~',
-                    icon: 'none'
-                })
-            }
-        }, (err) => {
-            Taro.showToast({
-                title: err.errMsg || '获取小程序码失败，将使用默认图片~',
-                icon: 'none'
-            })
-        });
-    }
     config = {
         navigationBarTitleText: '关于',
         disableScroll: true
@@ -49,6 +26,8 @@ class About extends Component {
         return {
             title: `诚邀您参加${invite.groomName}&${invite.brideName}的婚礼`,
             path: '/pages/Index/index',
+            imageUrl: 'https://forguo.cn/assets/wedding-app/imgs/share.png',
+
         }
     }
 

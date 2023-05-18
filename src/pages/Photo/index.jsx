@@ -3,8 +3,8 @@ import {Swiper, SwiperItem, Image, View} from '@tarojs/components'
 import {connect} from '@tarojs/redux';
 import './index.scss'
 
-import cloud from '../../service/cloud';
 import LoadMore from "../../components/LoadMore";
+import request from "../../store/request";
 
 // 在页面中定义插屏广告
 let interstitialAd = null
@@ -22,15 +22,6 @@ class Photo extends Component {
     };
 
     componentWillMount() {
-        // 在页面onLoad回调事件中创建插屏广告实例
-        if (Taro.createInterstitialAd) {
-            interstitialAd = Taro.createInterstitialAd({
-                adUnitId: 'adunit-0ef7a74ee5ce0dc9'
-            })
-            interstitialAd.onLoad(() => {})
-            interstitialAd.onError(() => {})
-            interstitialAd.onClose(() => {})
-        }
         this.getList();
     }
 
@@ -54,43 +45,32 @@ class Photo extends Component {
         return {
             title: `诚邀您参加${invite.groomName}&${invite.brideName}的婚礼`,
             path: '/pages/Index/index',
+            imageUrl: 'https://forguo.cn/assets/wedding-app/imgs/share.png',
         }
     }
 
-    getList = () => {
-        Taro.showNavigationBarLoading();
-        cloud.get('wedding_photos' ).then((res) => {
-            if (res.errMsg === 'collection.get:ok') {
-                if (res.data.length <= 0) {
+    getList = async () => {
+        try {
+            const res = await request.request({
+                url: '/wedding_photos',
+            })
+            if (res.data.length <= 0) {
+                this.setState({
+                    loadingStatus: 'noMore'
+                });
+            } else {
+                this.setState({
+                    list: [ ...res.data],
+                });
+                setTimeout(() => {
                     this.setState({
-                        loadingStatus: 'noMore'
-                    });
-                } else {
-                    this.setState({
-                        list: [ ...res.data],
-                    });
-                    setTimeout(() => {
-                        this.setState({
-                            loadingStatus: 'isMore'
-                        })
-                    }, 150)
-                }
+                        loadingStatus: 'isMore'
+                    })
+                }, 150)
             }
-            Taro.hideNavigationBarLoading();
-            Taro.stopPullDownRefresh();
-        }, (err) => {
-            console.log(err);
-            Taro.stopPullDownRefresh();
-            Taro.hideNavigationBarLoading();
-            this.setState({
-                loadingStatus: 'noMore'
-            });
-            Taro.showToast({
-                title: err.errMsg || '请求失败，请重试！',
-                icon: 'none',
-                duration: 3000
-            });
-        });
+        } catch (e) {
+            console.log(e)
+        }
     };
 
     handleImgSave = (src) => {

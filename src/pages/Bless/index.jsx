@@ -1,16 +1,16 @@
 import Taro, {Component} from '@tarojs/taro'
 import {connect} from '@tarojs/redux';
 import {Button, Textarea, Video, View} from '@tarojs/components'
-import './index.scss'
-import {getRandomColor} from "../../util";
+import {getRandomColor} from "@/libs/util";
 
-import LoadMore from "../../components/LoadMore";
-import GetUserInfo from '../../components/GetUserInfo';
-
-import { dispatchSendMsg, dispatchGetMsg } from '../../store/actions/msg';
+import { dispatchSendMsg, dispatchGetMsg } from '@/apis/msg';
 import {
     dispatchGetVideo
-} from '../../store/actions/video';
+} from '@/apis/video';
+
+import LoadMore from "@/components/LoadMore";
+import GetUserInfo from '@/components/GetUserInfo';
+import './index.scss'
 
 let barrageLoop = null;
 
@@ -49,6 +49,7 @@ class Bless extends Component {
     }
     config = {
         navigationBarTitleText: '喜悦',
+        navigationStyle: 'custom',
         "usingComponents": {
             "barrage": "../../components/miniprogram-barrage",
         }
@@ -61,6 +62,7 @@ class Bless extends Component {
         return {
             title: `诚邀您参加${invite.groomName}&${invite.brideName}的婚礼`,
             path: '/pages/Index/index',
+            imageUrl: 'https://forguo.cn/assets/wedding-app/imgs/share.png',
         }
     }
 
@@ -72,7 +74,7 @@ class Bless extends Component {
             duration: 60,
             lineHeight: 2,
             mode: 'separate',
-            padding: [10, 0, 10, 0],
+            padding: [30, 0, 10, 0],
             tunnelShow: false,
             animationend: () => {
                 console.log('animationend');
@@ -228,55 +230,13 @@ class Bless extends Component {
         })
     };
 
-
-    // 情话服务
-    getJoke () {
-        // 随机数
-        function random(min, max) {
-            if(max == null) {
-                max = min;
-                min = 0;
-            }
-            return min + Math.floor(Math.random() * (max - min + 1));
-        }
-        const mode = random(3, 4); // 输入类型编码，1: 冷笑话, 2: 普通笑话, 3: 浪漫情话, 4: 土味情话, 5: 心灵鸡汤
-        console.log({
-            '3': '浪漫情话',
-            '4': '土味情话',
-        }[mode]);
-        // eslint-disable-next-line no-undef
-        wx.serviceMarket.invokeService({
-            service: 'wxcae50ba710ca29d3',
-            api: 'jokebot',
-            data: {
-                mode
-            },
-        }).then(res => {
-            Taro.hideLoading();
-            if (res.errMsg === "invokeService:ok") {
-                console.log(res.data.data_list);
-                if (res.data.data_list && res.data.data_list.length > 0) {
-                    this.setState({
-                        msg: res.data.data_list[0].result || '',
-                    });
-                }
-            }
-        }).catch(err => {
-            Taro.hideLoading();
-            Taro.showModal({
-                title: '获取失败，请手动输入吧~',
-                content: err + '',
-            })
-        })
-    }
-
     render() {
         const {
             loadingStatus,
             video,
             msg,
             videoVisible,
-            barrageVisible
+            barrageVisible,
         } = this.state;
 
         return (
@@ -329,21 +289,18 @@ class Bless extends Component {
                         />
                     </View>
                 }
-                <View className='send-msg-random' onClick={this.getJoke.bind(this)}>随机来一条</View>
 
                 <View className='bless-tool'>
                     {
                         videoVisible &&
                         <Button className='bless-tool__send-msg'>
                             <GetUserInfo onHandleComplete={this.handleSendBless.bind(this)} />
-                            发送留言
+                            发送祝福
                         </Button>
                     }
-
                     <Button className='bless-tool__share' openType='share'>分享喜悦</Button>
                     {/*<Button className='bless-tool__share' onClick={this.handleAddBarrage.bind(this)}>开启弹幕</Button>*/}
                 </View>
-
                 {
                     loadingStatus === 'loading' &&
                     <View className='spin-loading'>

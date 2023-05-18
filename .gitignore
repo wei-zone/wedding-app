@@ -1,8 +1,23 @@
-/node_modules/
-/dist/
-/.idea
-.idea
 /cloud/functions/wxShare/node_modules/
 /cloud/functions/user/node_modules/
 /cloud/functions/msgCheck/node_modules/
 /cloud/functions/getQrcode/node_modules/
+
+.DS_Store
+node_modules
+/node_modules
+/dist/
+
+# local env files
+.env.local
+.env.development.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+/.idea
+.vscode

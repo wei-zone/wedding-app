@@ -1,3 +1,4 @@
+const path = require('path');
 const config = {
     projectName: 'wedding',
     date: '2020-7-16',
@@ -83,6 +84,16 @@ const config = {
             }
         }
     },
+    // 配置目录别名
+    alias: {
+        '@/src': path.resolve(__dirname, '..', 'src'),
+        '@/components': path.resolve(__dirname, '..', 'src/components'),
+        '@/assets': path.resolve(__dirname, '..', 'src/assets'),
+        '@/libs': path.resolve(__dirname, '..', 'src/libs'),
+        '@/redux': path.resolve(__dirname, '..', 'src/store'),
+        '@/apis': path.resolve(__dirname, '..', 'src/store/actions'),
+        '@/pages': path.resolve(__dirname, '..', 'src/pages'),
+    }
 };
 
 module.exports = function (merge) {

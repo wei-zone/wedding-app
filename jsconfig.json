@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/src/*": ["./src/*"],
+            "@/components/*": ["./src/components/*"],
+            "@/assets/*": ["./src/assets/*"],
+            "@/libs/*": ["./src/libs/*"],
+            "@/redux/*": ["./src/store/*"],
+            "@/apis/*": ["./src/store/actions/*"],
+            "@/pages/*": ["./src/pages/*"]
+        }
+    }
+}

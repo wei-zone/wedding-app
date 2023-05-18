@@ -1,5 +1,5 @@
 import Taro, {Component} from '@tarojs/taro'
-import {View} from "@tarojs/components";
+import {CoverView } from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import './_index.scss';
 
@@ -70,18 +70,18 @@ export default class Bgm extends Component {
             status
         } = this.state;
         return (
-            <View className='bgm-component' onClick={this.onChangePlayStatus.bind(this)}>
-                <View className='music-bg'>
-                    <View className={status === 'play' ? 'music-status play' : 'music-status pause'}>
-                        <View className='music-dot' />
-                        <View className='music-dot' />
-                        <View className='music-dot' />
-                        <View className='music-dot' />
-                        <View className='music-dot' />
-                        <View className='music-dot' />
-                    </View>
-                </View>
-            </View>
+            <CoverView className='bgm-component' onClick={this.onChangePlayStatus.bind(this)}>
+                <CoverView className='music-bg'>
+                    <CoverView className={status === 'play' ? 'music-status play' : 'music-status pause'}>
+                        <CoverView className='music-dot' />
+                        <CoverView className='music-dot' />
+                        <CoverView className='music-dot' />
+                        <CoverView className='music-dot' />
+                        <CoverView className='music-dot' />
+                        <CoverView className='music-dot' />
+                    </CoverView>
+                </CoverView>
+            </CoverView>
         )
     }
 }

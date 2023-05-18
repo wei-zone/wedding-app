@@ -14,7 +14,7 @@ let defaultState = {
         location: {},
         music: ''
     },
-    statue: 'loading'
+    status: 'loading'
 };
 
 export default function counter(state = defaultState, action) {
@@ -27,7 +27,7 @@ export default function counter(state = defaultState, action) {
         case INVITE_STATUS:
             return {
                 ...state,
-                statue: action.statue
+                status: action.status
             };
         default:
             return state

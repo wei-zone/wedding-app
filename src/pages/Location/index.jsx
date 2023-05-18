@@ -2,8 +2,8 @@ import Taro, {Component} from '@tarojs/taro'
 import {connect} from '@tarojs/redux';
 import { Button, Text, Image, View, Map } from '@tarojs/components'
 import './index.scss'
-import callHe from '../../common/img/icon-call-he.png';
-import callShe from '../../common/img/icon-call-she.png';
+import callHe from '../../assets/img/icon-call-he.png';
+import callShe from '../../assets/img/icon-call-she.png';
 
 @connect(({invite}) => {
     return {
@@ -15,13 +15,11 @@ import callShe from '../../common/img/icon-call-she.png';
 })
 
 class Location extends Component {
-
     state = {
         navBarTop: 44 + 36 + 6 + 45,
     };
-
     componentDidMount() {
-        this.getSystemInfo();
+        this.getSystemInfo()
     }
     config = {
         navigationBarTitleText: '导航',
@@ -33,7 +31,8 @@ class Location extends Component {
         } = this.props;
         return {
             title: `诚邀您参加${invite.groomName}&${invite.brideName}的婚礼`,
-            path: '/pages/Index/index',
+            path: '/pages/Location/index',
+            imageUrl: 'https://forguo.cn/assets/wedding-app/imgs/share.png',
         }
     }
 
@@ -123,14 +122,14 @@ class Location extends Component {
                 <Button className='location__nav-btn' style={{
                     top: `${navBarTop}px`
                 }} onClick={this.handleMapNav.bind(this)}
-                >一键导航</Button>
+                >导航</Button>
                 <View className='location__tool'>
                     <View className='location__tool-btn'>
-                        <View className='location__tool-call' onClick={this.handlePhoneCall.bind(this, brideMobile)}>
+                        <View className='location__tool-call' onClick={this.handlePhoneCall.bind(this, groomMobile)}>
                             <Image src={callHe} className='location__tool-call-img' />
                             <Text className='location__tool-call-txt'>呼叫新郎</Text>
                         </View>
-                        <View className='location__tool-call' onClick={this.handlePhoneCall.bind(this, groomMobile)}>
+                        <View className='location__tool-call' onClick={this.handlePhoneCall.bind(this, brideMobile)}>
                             <Image src={callShe} className='location__tool-call-img' />
                             <Text className='location__tool-call-txt'>呼叫新娘</Text>
                         </View>

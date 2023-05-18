@@ -4,17 +4,17 @@
             {
                 "description": "_openid",
                 "displayName": "_openid",
-                "id": "yfchpsutxu3s17zp9rlqle8hd8g43jx3",
+                "id": "_openid",
                 "isHidden": true,
                 "isRequired": false,
-                "name": "_openid",
+                "name": "openid",
                 "order": 0,
                 "type": "String"
             },
             {
                 "description": "昵称",
                 "displayName": "昵称",
-                "id": "1u100ujb7xzo3tps9yy068t7eyd6urof",
+                "id": "nickName",
                 "isRequired": true,
                 "name": "nickName",
                 "order": 1,
@@ -23,7 +23,7 @@
             {
                 "description": "头像",
                 "displayName": "头像",
-                "id": "lh46ujpf38hqy2y8xkudpf5lgxampvcm",
+                "id": "avatarUrl",
                 "isRequired": true,
                 "name": "avatarUrl",
                 "order": 2,
@@ -33,29 +33,11 @@
             {
                 "description": "留言",
                 "displayName": "留言",
-                "id": "ij8eqmc2qia3t4noqkztbk69nslg92si",
+                "id": "userMsg",
                 "isRequired": true,
                 "name": "userMsg",
                 "order": 3,
                 "type": "MultiLineString"
-            },
-            {
-                "dateFormatType": "timestamp-ms",
-                "description": "系统字段，请勿随意修改",
-                "displayName": "创建时间",
-                "id": "_createTime",
-                "isSystem": true,
-                "name": "_createTime",
-                "type": "DateTime"
-            },
-            {
-                "dateFormatType": "timestamp-ms",
-                "description": "系统字段，请勿随意修改",
-                "displayName": "修改时间",
-                "id": "_updateTime",
-                "isSystem": true,
-                "name": "_updateTime",
-                "type": "DateTime"
             },
             {
                 "copyable": true,
@@ -66,17 +48,6 @@
                 "isSystem": true,
                 "name": "_id",
                 "type": "String"
-            },
-            {
-                "dateFormatType": "string",
-                "description": "创建日期",
-                "displayName": "创建日期",
-                "id": "mvboiogj2rgofqdfvh8d3rz21efcsjue",
-                "isOrderField": true,
-                "name": "createTime",
-                "order": 7,
-                "orderDirection": "desc",
-                "type": "DateTime"
             },
             {
                 "description": "留言类型",
@@ -90,10 +61,9 @@
                     {
                         "label": "视频留言",
                         "value": "barrage"
-                    },
-                    {}
+                    }
                 ],
-                "id": "0n0dcjdjp3cm3zimgw5agxrhlv60ov5o",
+                "id": "type",
                 "name": "type",
                 "order": 8,
                 "type": "Enum"
@@ -102,32 +72,14 @@
         "collectionName": "wedding_msgs",
         "displayName": "留言",
         "description": "留言",
-        "_id": "79550af2601d0eae02bb564f6e9bd601"
+        "_id": "wedding_msgs"
     },
     {
         "fields": [
             {
-                "dateFormatType": "timestamp-ms",
-                "description": "系统字段，请勿随意修改",
-                "displayName": "创建时间",
-                "id": "_createTime",
-                "isSystem": true,
-                "name": "_createTime",
-                "type": "DateTime"
-            },
-            {
-                "dateFormatType": "timestamp-ms",
-                "description": "系统字段，请勿随意修改",
-                "displayName": "修改时间",
-                "id": "_updateTime",
-                "isSystem": true,
-                "name": "_updateTime",
-                "type": "DateTime"
-            },
-            {
                 "description": "图片",
                 "displayName": "图片",
-                "id": "qcyiyz7hs1l2eg1lcd0aslfc7rqu2bah",
+                "id": "src",
                 "isMultiple": false,
                 "isRequired": true,
                 "name": "src",
@@ -138,68 +90,60 @@
             {
                 "description": "描述",
                 "displayName": "描述",
-                "id": "z340spa151kg6zq2hhsykhz9kjmbdtta",
+                "id": "desc",
                 "isRequired": false,
                 "name": "desc",
                 "order": 3,
                 "type": "String"
-            },
-            {
-                "dateFormatType": "date",
-                "displayName": "创建时间",
-                "id": "tmqiueqy7shnhfg4a3qg9dyp5sfp9ywj",
-                "name": "createTime",
-                "order": 4,
-                "type": "DateTime"
             }
         ],
         "collectionName": "wedding_photos",
         "displayName": "相册",
-        "description": "wedding_msgs",
-        "_id": "79550af260599f920b7d4fdf71d54f67"
+        "description": "wedding_photos",
+        "_id": "wedding_photos"
     },
     {
         "fields": [
             {
                 "description": "婚礼主题",
                 "displayName": "婚礼主题",
-                "id": "izh8gw0e8gtuv94gbjxgbkrilhstewnk",
+                "id": "theme",
                 "isRequired": true,
                 "name": "theme",
                 "order": 0,
                 "type": "String"
             },
             {
-                "description": "新郎名称",
-                "displayName": "新郎姓名",
-                "id": "z7i6tsd6zqqaltl8ni3dl7skb02mtsm4",
+                "description": "新娘名称",
+                "displayName": "新娘姓名",
+                "id": "brideName",
                 "isRequired": true,
                 "name": "brideName",
                 "order": 1,
                 "type": "String"
             },
             {
-                "description": "新郎手机号",
-                "displayName": "新郎手机号",
-                "id": "n29o8xrrtilq9w6i3491wqy1h28vi5cr",
+                "description": "新娘手机",
+                "displayName": "新娘手机",
+                "id": "brideMobile",
                 "isRequired": true,
                 "name": "brideMobile",
                 "order": 2,
                 "type": "String"
             },
             {
-                "description": "新娘姓名",
-                "displayName": "新娘姓名",
-                "id": "iihlu49ry2f23v4w9e6zdzuj5fq512kz",
+                "description": "新郎姓名",
+                "displayName": "新郎姓名",
+                "id": "groomName",
                 "isRequired": true,
                 "name": "groomName",
                 "order": 3,
                 "type": "String"
             },
             {
-                "description": "新娘姓名",
-                "displayName": "新娘姓名",
-                "id": "cdljww0z2to5hpaba0arzmcnrg12jycj",
+                "description": "新郎手机",
+                "displayName": "新郎手机",
+                "id": "groomMobile",
                 "isRequired": true,
                 "name": "groomMobile",
                 "order": 4,
@@ -208,12 +152,21 @@
             {
                 "description": "首页背景图",
                 "displayName": "首页背景图",
-                "id": "mvzszirctufcef1dnz6vtw5balsmewpu",
+                "id": "backgroundImage",
                 "isRequired": true,
-                "name": "banner",
+                "name": "backgroundImage",
                 "order": 5,
                 "resourceLinkType": "https",
                 "type": "Image"
+            },
+            {
+                "description": "首页背景色",
+                "displayName": "首页背景色",
+                "id": "backgroundColor",
+                "isRequired": true,
+                "name": "backgroundColor",
+                "order": 6,
+                "type": "String"
             },
             {
                 "defaultValue": {
@@ -224,45 +177,45 @@
                 },
                 "description": "举办地点\n经纬度及地点，取腾讯地图\n拾取器：https://lbs.qq.com/getPoint/",
                 "displayName": "举办地点",
-                "id": "qmn81ib24ir5o90hx85vp8nimul7nh56",
+                "id": "location",
                 "isRequired": true,
                 "name": "location",
-                "order": 6,
+                "order": 7,
                 "type": "Object"
             },
             {
                 "dateFormatType": "string",
                 "description": "婚礼开始时间",
                 "displayName": "婚礼开始时间",
-                "id": "7n4wly2nccxei67qqzrhfofqeq8slpbe",
+                "id": "startTime",
                 "isRequired": true,
                 "name": "startTime",
-                "order": 7,
+                "order": 8,
                 "type": "DateTime"
             },
             {
                 "dateFormatType": "string",
                 "description": "婚礼结束时间",
                 "displayName": "婚礼结束时间",
-                "id": "7gcpikktyi5gpdvimqprxfuwzkls9ldr",
+                "id": "endTime",
                 "isRequired": true,
                 "name": "endTime",
-                "order": 8,
+                "order": 9,
                 "type": "DateTime"
             },
             {
                 "description": "背景音乐名称",
                 "displayName": "背景音乐名称",
-                "id": "6ce2maumnitx0r4hhf5p6k47wtmgj7go",
+                "id": "musicTitle",
                 "isRequired": true,
                 "name": "musicTitle",
-                "order": 9,
+                "order": 10,
                 "type": "String"
             },
             {
                 "description": "背景音乐",
                 "displayName": "背景音乐",
-                "id": "y03kv14kvmtnxnmbqo83f4bg19m4e4wh",
+                "id": "musicUrl",
                 "isRequired": true,
                 "name": "musicUrl",
                 "order": 10,
@@ -272,7 +225,7 @@
             {
                 "description": "请裁剪图片，建议尺寸：64px*64px",
                 "displayName": "背景音乐缩略图",
-                "id": "2dksd2ob46kll1335ks12st6z4p1xc84",
+                "id": "coverImgUrl",
                 "isRequired": true,
                 "name": "coverImgUrl",
                 "order": 11,
@@ -283,60 +236,24 @@
                 "defaultValue": true,
                 "description": "是否展示留言（一般用于审核关闭时用）",
                 "displayName": "是否展示留言",
-                "id": "3irfu1jmegcxmhcd83rs4gkwp0qwq2o6",
+                "id": "msg",
                 "isRequired": true,
                 "name": "msg",
                 "order": 12,
                 "type": "Boolean"
-            },
-            {
-                "dateFormatType": "timestamp-ms",
-                "description": "系统字段，请勿随意修改",
-                "displayName": "创建时间",
-                "id": "_createTime",
-                "isSystem": true,
-                "name": "_createTime",
-                "type": "DateTime"
-            },
-            {
-                "dateFormatType": "timestamp-ms",
-                "description": "系统字段，请勿随意修改",
-                "displayName": "修改时间",
-                "id": "_updateTime",
-                "isSystem": true,
-                "name": "_updateTime",
-                "type": "DateTime"
             }
         ],
         "collectionName": "wedding_invite",
-        "displayName": "邀请函",
-        "description": "邀请函",
-        "_id": "b00064a760599ff20b61cb6977b14a4e"
+        "displayName": "请柬",
+        "description": "请柬",
+        "_id": "wedding_invite"
     },
     {
         "fields": [
             {
-                "dateFormatType": "timestamp-ms",
-                "description": "系统字段，请勿随意修改",
-                "displayName": "创建时间",
-                "id": "_createTime",
-                "isSystem": true,
-                "name": "_createTime",
-                "type": "DateTime"
-            },
-            {
-                "dateFormatType": "timestamp-ms",
-                "description": "系统字段，请勿随意修改",
-                "displayName": "修改时间",
-                "id": "_updateTime",
-                "isSystem": true,
-                "name": "_updateTime",
-                "type": "DateTime"
-            },
-            {
                 "description": "视频封面",
                 "displayName": "视频封面",
-                "id": "r1hc5x9erby91rk7tau4sn7msbob20u0",
+                "id": "poster",
                 "isRequired": true,
                 "name": "poster",
                 "order": 3,
@@ -346,7 +263,7 @@
             {
                 "description": "视频链接",
                 "displayName": "视频链接",
-                "id": "dztbq4sugirmtqbd2h821my3weg3sstl",
+                "id": "src",
                 "isRequired": true,
                 "name": "src",
                 "order": 3,
@@ -357,7 +274,7 @@
                 "defaultValue": true,
                 "description": "一般用于审核（不用动的）",
                 "displayName": "是否展示视频",
-                "id": "73qy1g7tz22rjkt53f4fy61qf1dmul3g",
+                "id": "videoVisible",
                 "isRequired": true,
                 "name": "videoVisible",
                 "order": 4,
@@ -367,6 +284,69 @@
         "collectionName": "wedding_video",
         "displayName": "视频",
         "description": "视频",
-        "_id": "b00064a76059a0040b61d2bc14058a7a"
+        "_id": "wedding_video"
+    },
+    {
+        "fields": [
+            {
+                "description": "昵称",
+                "displayName": "昵称",
+                "id": "nickName",
+                "isRequired": true,
+                "name": "nickName",
+                "order": 1,
+                "type": "String"
+            },
+            {
+                "description": "头像",
+                "displayName": "头像",
+                "id": "avatarUrl",
+                "isRequired": true,
+                "name": "avatarUrl",
+                "order": 2,
+                "resourceLinkType": "fileId",
+                "type": "Image"
+            },
+            {
+                "description": "姓名",
+                "displayName": "姓名",
+                "id": "userName",
+                "isRequired": true,
+                "name": "userName",
+                "order": 3,
+                "type": "String"
+            },
+            {
+                "description": "礼金",
+                "displayName": "礼金",
+                "id": "userGift",
+                "isRequired": true,
+                "name": "userGift",
+                "order": 4,
+                "type": "String"
+            },
+            {
+                "description": "手机",
+                "displayName": "手机",
+                "id": "userPhone",
+                "isRequired": true,
+                "name": "userPhone",
+                "order": 5,
+                "type": "String"
+            },
+            {
+                "description": "备注",
+                "displayName": "备注",
+                "id": "userRemark",
+                "isRequired": true,
+                "name": "userRemark",
+                "order": 6,
+                "type": "String"
+            }
+        ],
+        "collectionName": "wedding_attend",
+        "displayName": "礼金薄",
+        "description": "礼金薄",
+        "_id": "wedding_attend"
     }
 ]

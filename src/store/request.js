@@ -2,18 +2,16 @@
  * @Description: 接口请求的封装
  * @author: forguo
  * @date: 2020/7/23
-*/
+ */
 import Taro from '@tarojs/taro';
-import {LOGIN, LOGOUT} from "../store/constants/account";
+import {clearEmpty} from "@/libs/util";
+import {LOGIN} from "./constants/account";
 import configStore from "../store/index";
-import {clearEmpty} from "../util";
-import config from "../common/config";
+import config from "../assets/config";
 
 const store = configStore();
 const NODE_ENV = process.env.NODE_ENV;
 const baseUrl = NODE_ENV === 'development' ? config[config.env].api : config.prod.api;
-/* eslint-enable */
-console.log(`%c baseUrl %c ${baseUrl}`, 'padding: 1px; border-radius: 3px 0 0 3px; color: #479edf', 'padding: 1px 5px 1px 1px; border-radius: 0 3px 3px 0; color: #42c02e');
 
 // 错误码
 const CODE_MSG = {
@@ -41,7 +39,7 @@ const request = {
      * 登录授权操作
      * @returns {Promise}
      */
-    login: async function() {
+    login: async function () {
         Taro.showLoading({
             title: '登录中...',
             mask: true
@@ -56,8 +54,14 @@ const request = {
                         try {
                             let res = this.request({
                                 url: '/auth/login',
-                                data,
                                 method: 'post',
+                                data: {
+                                    data: {
+                                        ...data,
+                                        _createTime: Date.now(),
+                                        _updateTime: Date.now(),
+                                    }
+                                },
                             });
                             store.dispatch({
                                 type: LOGIN,
@@ -104,27 +108,28 @@ const request = {
      * @returns {Promise<unknown>}
      */
     request: async function (params) {
-        let accessToken = Taro.getStorageSync('accessToken');
-         // 删除空参数
+        /** Taro.getStorageSync('accessToken') **/
+        let accessToken = config.token;
+        // 删除空参数
         params.data = clearEmpty(params.data);
         return await new Promise((resolve, reject) => {
             // 做一次参数合并，加入token
             let header = Object.assign(
                 {}, {
-                    'content-type': 'application/x-www-form-urlencoded'
+                    'content-type': 'application/json'
                 },
                 params.header
             );
             if (accessToken) {
-                header = Object.assign({},header, {
-                    'Authorization': `Bearer ${accessToken}`
+                header = Object.assign({}, header, {
+                    'Authorization': `Bearer ${accessToken}`,
                 });
             }
             header = Object.assign({}, header, params.header);
             Taro.showNavigationBarLoading();
             Taro.request({
                 header: header,
-                url: `${baseUrl}/weapp${params.url}`,
+                url: `${baseUrl}${params.url}`,
                 method: params.method || 'get',
                 data: params.data,
                 success: (res) => {
@@ -140,7 +145,7 @@ const request = {
                     });
                 },
                 fail: (err) => {
-                    let { ifHandleError } = params;
+                    let {ifHandleError} = params;
                     console.warn('requestFail ===>', err);
                     this.handlerReject(err, reject, ifHandleError);
                 },
@@ -151,27 +156,12 @@ const request = {
         });
     },
     // 请求成功的处理
-    handlerResolve: function(res, resolve, reject, tokenCallBack) {
-        if (res.statusCode === 200) {
-            if (typeof res.data === 'string') {
-                res.data = JSON.parse(res.data);
-            }
-            if (!res.data.code) {
-                setTimeout(() => {
-                    Taro.showToast({
-                        duration: 3000,
-                        icon: 'none',
-                        title: '请求失败，请重试~'
-                    });
-                }, 0);
-                reject(res);
-                return false;
-            }
-            if (res.data.code === 200) {
-                resolve(res.data);
-            } else {
+    handlerResolve: function (res, resolve, reject) {
+        console.log('res --->', res)
+        if (res.statusCode === 200 || res.statusCode === 201) {
+            if (res.error || res.data.code) {
                 console.warn('handlerResolveError ===>', JSON.stringify(res));
-                const errMsg = res.data.message || CODE_MSG[res.statusCode] || res.errMsg || '系统异常，请重试~';
+                const errMsg = res.message || res.error.message || CODE_MSG[res.statusCode] || res.errMsg || '系统异常，请重试~';
                 setTimeout(() => {
                     Taro.showToast({
                         duration: 3000,
@@ -180,45 +170,8 @@ const request = {
                     });
                 }, 0);
                 reject(res.data);
-            }
-        } else if (res.statusCode === 401) {
-            //  401: '用户没有权限（用户名或密码错误）。',
-            if (res.data.code === 457) {
-                // 刷新token失败，重新登录
-                store.dispatch({
-                    type: LOGOUT,
-                });
-                Taro.clearStorageSync(); // 刷新token也要清空
-                // 没有token直接去登录
-                setTimeout(() => {
-                    Taro.showToast({
-                        title: '登录失效，即将重新登录...',
-                        icon: 'none'
-                    });
-                }, 0);
-
-                setTimeout(() => {
-                    // 该用户未绑定，先去登录绑定
-                    Taro.reLaunch({
-                        url: '/pages/Login/Login'
-                    });
-                }, 1500);
-            } else if (res.data.code === 454) {
-                // token失效的处理，重新授权一次
-                this.login().then(() => {
-                    tokenCallBack && tokenCallBack();
-                });
             } else {
-                // 密码错误的处理
-                const errMsg = res.data.message || CODE_MSG[res.statusCode] || res.errMsg;
-                setTimeout(() => {
-                    Taro.showToast({
-                        duration: 3000,
-                        icon: 'none',
-                        title: errMsg
-                    });
-                }, 0);
-                reject(res.data);
+                resolve(res.data);
             }
         } else {
             console.warn('handlerResolveError ===>', JSON.stringify(res));
@@ -237,17 +190,18 @@ const request = {
     handlerReject: function (err, reject, ifHandleError = true) {
         reject(err);
         if (ifHandleError) {
-            setTimeout(function() {
+            setTimeout(function () {
                 Taro.showToast({
                     title: '您的网络似乎不太好，请稍后再试哦~',
                     icon: 'none',
                     duration: 3000
                 });
-            },0);
+            }, 0);
         }
     },
     handleComplete: () => {
         // 请求完成，关闭所有loading
+        Taro.stopPullDownRefresh();
         Taro.hideNavigationBarLoading();
         Taro.hideLoading();
     },

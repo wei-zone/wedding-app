@@ -1,22 +1,22 @@
 import Taro, {Component} from '@tarojs/taro'
 import { Image, View } from '@tarojs/components';
 import {connect} from "@tarojs/redux";
-import moment from "moment";
+import dayjs from "dayjs";
+import { dispatchSendMsg} from "@/apis/msg";
 import LoadMore from "../../components/LoadMore";
 import SendMsg from "./components/SendMsg"
 import GetUserInfo from '../../components/GetUserInfo';
-import iconWrite from "../../common/img/icon-write.png";
-import iconAttend from "../../common/img/icon-attend.png";
+import iconWrite from "../../assets/img/icon-write.png";
+import iconAttend from "../../assets/img/icon-attend.png";
 import './index.scss'
 
-import {dispatchGetMsg, dispatchSendMsg} from "../../store/actions/msg";
+import request from "../../store/request";
 
 @connect(({account, invite}) => ({
     userInfo: account.userInfo,
     invite: invite.invite
 }), {
     dispatchSendMsg,
-    dispatchGetMsg
 })
 class Msg extends Component {
     state = {
@@ -24,7 +24,8 @@ class Msg extends Component {
         current: 0,
         loadingStatus: 'loading',
         isMore: true,
-        msgVisible: false
+        msgVisible: false,
+        showAttend: false, // 礼金薄展示
     };
 
     componentWillMount() {
@@ -42,6 +43,7 @@ class Msg extends Component {
         return {
             title: `诚邀您参加${invite.groomName}&${invite.brideName}的婚礼`,
             path: '/pages/Index/index',
+            imageUrl: 'https://forguo.cn/assets/wedding-app/imgs/share.png',
         }
     }
 
@@ -61,20 +63,18 @@ class Msg extends Component {
     };
 
     onHandleAddMsg = (msg) => {
-        const DateFormat = 'YYYY-MM-DD HH:mm:ss';
         let {
             list
         } = this.state;
         list.unshift({
-            ...msg,
-            "createTime": moment().format(DateFormat)
+            ...msg
         });
         this.setState({
             list
         });
     };
 
-    getList = () => {
+    getList = async () => {
         const {
             isMore,
             current
@@ -82,7 +82,15 @@ class Msg extends Component {
         if (!isMore) {
             return false;
         }
-        this.props.dispatchGetMsg(current).then(res => {
+        try {
+            const res = await request.request({
+                url: '/wedding_msgs',
+                data: {
+                    skip: current * 10,
+                    limit: 10,
+                }
+            })
+            console.log('list', res.data)
             if (res.data.length <= 0) {
                 this.setState({
                     isMore: false,
@@ -101,12 +109,9 @@ class Msg extends Component {
                     });
                 }
             }
-        }, () => {
-            this.setState({
-                isMore: false,
-                loadingStatus: 'noMore'
-            });
-        });
+        } catch (e) {
+            console.log(e)
+        }
     };
 
     // 列表渲染
@@ -126,7 +131,7 @@ class Msg extends Component {
                                 {item.nickName}
                             </View>
                             <View className='msg-item__msg-time'>
-                                {item.createTime}
+                                {dayjs(item._createTime).format('YYYY-MM-DD HH:mm:ss')}
                             </View>
                         </View>
                         <View className='msg-item__msg-text'>{item.userMsg}</View>
@@ -139,18 +144,24 @@ class Msg extends Component {
     render() {
         const {
             loadingStatus,
-            msgVisible
+            msgVisible,
+            showAttend,
         } = this.state;
         const {
-            invite
+            invite,
         } = this.props;
-        const { msg } = invite; // Todo
+        const { msg } = invite;
         return (
             <View className='page msg'>
                 <View className='ad-container'>
                     <ad unit-id='adunit-a46f1899f153c651' ad-intervals='33'></ad>
                 </View>
-                <View className='msg-list'>
+                <View className='msg-list' onLongTap={()=> {
+                    this.setState({
+                        showAttend: true
+                    })
+                }}
+                >
                     {
                         this.renderList()
                     }
@@ -175,17 +186,16 @@ class Msg extends Component {
                 }
 
                 {
-                    msg &&
-                    <View className='attend-send'>
-                        <GetUserInfo onHandleComplete={() => {
-                            Taro.navigateTo({
-                                url: '/pages/Attend/index'
-                            })
-                        }}
-                        />
+                    showAttend &&
+                    <View className='attend-send' onClick={() => {
+                        Taro.navigateTo({
+                            url: '/pages/Attend/index'
+                        })
+                    }}
+                    >
                         <Image src={iconAttend} className='attend-send-icon' />
                         <View className='attend-send-btn'>
-                            我要出席
+                            礼金薄
                         </View>
                     </View>
                 }

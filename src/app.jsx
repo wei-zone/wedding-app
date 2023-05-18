@@ -1,16 +1,18 @@
 import Taro, {Component} from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
+import {
+    dispatchGetInviteInfo
+} from "@/apis/invite";
 import configStore from './store'
 import Index from './pages/Index/index'
-import cloudConfig from './service/config'
-import './common/css/app.scss'
-import './util/mtj-wx-sdk';
+import './assets/css/app.scss'
 
 // 设置全局分享
 Component.prototype.onShareAppMessage = function () {
     return {
         title: '诚邀您参加我们的婚礼~',
         path: '/pages/Index/index', // 默认首页
+        imageUrl: 'https://forguo.cn/assets/wedding-app/imgs/share.png',
     };
 };
 
@@ -19,6 +21,7 @@ const store = configStore();
 // app中的生命周期只会执行一次
 class App extends Component {
     componentWillMount() {
+        store.dispatch(dispatchGetInviteInfo())
         Taro.hideTabBar(); // 默认进来先隐藏 tabBar，当首页数据加载完成会显示
         console.log(`%c Env %c ${process.env.NODE_ENV}`, 'padding: 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060', 'padding: 1px 5px 1px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e');
         console.log(`%c author %c forguo`, 'padding: 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060', 'padding: 1px 5px 1px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #479edf');
@@ -26,23 +29,12 @@ class App extends Component {
         this.checkVersion(); // 版本更新
     }
 
-    componentDidMount() {
-        if (process.env.TARO_ENV === 'weapp') {
-            Taro.cloud.init({
-                env: cloudConfig
-            });
-        }
-    }
-
     config = {
         pages: [
             'pages/Index/index',
-            'pages/Photo/index',
             'pages/Location/index',
             'pages/Bless/index',
-            'pages/Msg/index',
-            'pages/About/index',
-            'pages/Attend/index',
+            'pages/About/index'
         ],
         window: {
             backgroundTextStyle: 'dark',
@@ -66,37 +58,25 @@ class App extends Component {
             list: [
                 {
                     pagePath: 'pages/Index/index',
-                    text: '邀请',
-                    iconPath: 'common/tab/invite.png',
-                    selectedIconPath: 'common/tab/invite-active.png'
-                },
-                {
-                    pagePath: 'pages/Photo/index',
-                    text: '相册',
-                    iconPath: 'common/tab/photo.png',
-                    selectedIconPath: 'common/tab/photo-active.png'
+                    text: '请柬',
+                    iconPath: 'assets/tab/invite.png',
+                    selectedIconPath: 'assets/tab/invite-active.png'
                 },
                 {
                     pagePath: 'pages/Location/index',
                     text: '导航',
-                    iconPath: 'common/tab/location.png',
-                    selectedIconPath: 'common/tab/location-active.png'
+                    iconPath: 'assets/tab/location.png',
+                    selectedIconPath: 'assets/tab/location-active.png'
                 },
                 {
                     pagePath: 'pages/Bless/index',
-                    text: '喜悦',
-                    iconPath: 'common/tab/bless.png',
-                    selectedIconPath: 'common/tab/bless-active.png'
-                },
-                {
-                    pagePath: 'pages/Msg/index',
                     text: '祝福',
-                    iconPath: 'common/tab/msg.png',
-                    selectedIconPath: 'common/tab/msg-active.png'
+                    iconPath: 'assets/tab/bless.png',
+                    selectedIconPath: 'assets/tab/bless-active.png'
                 },
             ]
         },
-        cloud: true
+        cloud: false
     };
 
     // 获取系统信息

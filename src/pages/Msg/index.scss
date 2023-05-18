@@ -1,4 +1,4 @@
-@import "../../common/css/theme";
+@import "../../assets/css/theme";
 Page {
     background: #fff;
 }
@@ -8,10 +8,13 @@ Page {
     padding-top: 30px;
     overflow-y: auto;
     &-item {
-        padding: 15px 0 10px 25px;
+        padding: 15px 0 0 25px;
         margin-bottom: 5px;
         display: flex;
         justify-content: start;
+        &:nth-last-child(1) {
+            margin-bottom: 0;
+        }
         &__user-avatar {
             width: 88px;
             height: 88px;
@@ -111,6 +114,7 @@ Page {
         &-icon {
             width: 40px;
             height: 40px;
+            margin-left: 24px;
         }
     }
 }
