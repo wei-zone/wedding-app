@@ -1,0 +1,48 @@
+name: Taro CI
+
+on: [push]
+# 触发构建动作
+#    push:
+#        # 触发构建分支[默认分支]
+#        branches: [ $default-branch ]
+#    pull_request:
+#        branches: [ $default-branch ]
+
+jobs:
+    deploy:
+
+        ## centos 报错：Illegal operation on a directory，拿不到dist/npm的权限
+        ## macos 读不到package.json的version字段
+        runs-on: macos-latest
+
+        strategy:
+            matrix:
+                node-version: [14.19.0]
+
+        steps:
+            - uses: actions/checkout@v2
+
+            # Node版本
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - name: rm -rf node_modules
+              run: rm -rf node_modules
+            - name: Install cnpm
+              run: npm install cnpm -g --registry=https://registry.npmmirror.com
+
+            - name: Install Dependencies
+              run: cnpm install
+            # 构建命令
+            - name: Build weapp
+              run: cnpm run build:weapp
+
+            # 上传秘钥存放在 Project/Settings/Secrets/DEPLOY_PRIVATE_KEY
+            - name: Generate private key for upload
+              run: echo "$DEPLOY_PRIVATE_KEY" > private.key
+              env:
+                  DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+            # 上传代码
+            - name: Upload to WeChat
+              run: node deploy ./private.key

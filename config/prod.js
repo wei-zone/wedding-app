@@ -1,10 +1,14 @@
 module.exports = {
     env: {
-        NODE_ENV: 'production'
+        NODE_ENV: 'development'
     },
     defineConstants: {
     },
-    mini: {},
+    mini: {
+        webpackChain (chain) {
+            chain.optimization.sideEffects(false)
+        }
+    },
     h5: {
         /**
          * 如果h5端编译后体积过大，可以使用webpack-bundle-analyzer插件对打包体积进行分析。
