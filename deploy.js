@@ -23,7 +23,7 @@ const { appid, description, setting } = config
             const project = new ci.Project({
                 appid,
                 type: 'miniProgram',
-                projectPath: './',
+                projectPath: './dist/',
                 privateKeyPath,
                 ignores: ['node_modules/**/*'],
             })

@@ -363,3 +363,10 @@ exports.main = async function (event, context) {
 
 有问题请issue【这样也方便别人查阅】
 
+## bugs
+
+- ci打包之后找不到taro ui npm文件夹
+
+```
+upload fail Error: dist/components/LoadMore/index.json: ["usingComponents"]["at-load-more"]: "../../npm/taro-ui/dist/weapp/components/load-more/index" not found
+```
