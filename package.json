@@ -81,7 +81,7 @@
         "eslint-plugin-react-hooks": "^1.6.1",
         "eslint-plugin-taro": "2.2.7",
         "file-loader": "^4.0.0",
-        "miniprogram-ci": "^1.9.8",
+        "miniprogram-ci": "1.0.24",
         "stylelint": "9.3.0",
         "stylelint-config-taro-rn": "2.2.7",
         "stylelint-taro-rn": "2.2.7"

@@ -32,7 +32,13 @@ const { appid, description, setting } = config
                     project,
                     version,
                     desc: `名称：${description}，版本：${version}`,
-                    setting,
+                    setting: {
+                        "urlCheck": false,
+                        "es6": false,
+                        "enhance": false,
+                        "postcss": false,
+                        "preloadBackgroundData": false,
+                    },
                     onProgressUpdate: (res) => console.log('upload', res._msg, res._status),
                 })
                 console.log('success', uploadResult)
